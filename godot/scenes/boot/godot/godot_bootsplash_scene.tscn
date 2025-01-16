@@ -17,5 +17,7 @@ theme = ExtResource("1_il62e")
 [node name="BootsplashScene" parent="." instance=ExtResource("2_ixabf")]
 layout_mode = 1
 theme = ExtResource("1_il62e")
+fade_duration = 0.75
+stay_duration = 0.75
 node = ExtResource("3_e0rf4")
 next_scene = ExtResource("4_n5qhh")
