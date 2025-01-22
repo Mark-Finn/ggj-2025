@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://cts3fqfwj1tx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rje4w"]
+bg_color = Color(0.72549, 0.568627, 0.352941, 0.141176)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.223103, 0.223103, 0.223103, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ded4u"]
+bg_color = Color(0.6, 0.6, 0.6, 0.219608)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mgh1y"]
+bg_color = Color(0.435294, 0.666667, 0.458824, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffrpm"]
+bg_color = Color(1.68458e-06, 0.70997, 0.479268, 1)
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 425.0
+offset_top = 150.0
+offset_right = 625.0
+offset_bottom = 300.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rje4w")
+
+[node name="NextPieceLabel" type="Label" parent="."]
+offset_left = 446.0
+offset_top = 103.0
+offset_right = 603.0
+offset_bottom = 152.0
+theme_override_font_sizes/font_size = 30
+text = "next piece:"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 435.0
+offset_top = 324.0
+offset_right = 521.0
+offset_bottom = 366.0
+theme_override_font_sizes/font_size = 30
+text = "score:"
+
+[node name="GameOverLabel" type="Label" parent="."]
+offset_left = 102.0
+offset_top = 301.0
+offset_right = 283.0
+offset_bottom = 381.0
+theme_override_font_sizes/font_size = 30
+text = "you died:("
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="."]
+offset_left = 452.0
+offset_top = 448.0
+offset_right = 610.0
+offset_bottom = 490.0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_ded4u")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mgh1y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ffrpm")
+text = "new game"
