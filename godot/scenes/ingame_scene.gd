@@ -51,10 +51,10 @@ const COLS : int = 10
 const ROWS : int = 20
 
 #movement variables
-const directions := [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.DOWN]
+const directions := [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP]
 var steps : Array
 const steps_req : int = 50
-const start_pos := Vector2i(5, 1)
+const start_pos := Vector2i(5, 19)
 var cur_pos : Vector2i
 var speed : float
 const ACCEL : float = 0.25
@@ -108,17 +108,17 @@ func _process(delta):
 			steps[0] += 10
 		elif Input.is_action_pressed("ui_right"):
 			steps[1] += 10
-		elif Input.is_action_pressed("ui_down"):
-			steps[2] += 10
 		elif Input.is_action_pressed("ui_up"):
+			steps[2] -= 10
+		elif Input.is_action_pressed("ui_down"):
 			rotate_piece()
 
 
 		#apply downward movement each frame
-		steps[2] += speed
+		steps[2] -= speed
 		#move piece
 		for i in range(steps.size()):
-			if steps[i] > steps_req:
+			if steps[i] < steps_req:
 				move_piece(directions[i])
 				steps[i] = 0
 
@@ -170,7 +170,7 @@ func move_piece(dir):
 		cur_pos += dir
 		draw_piece(active_piece, cur_pos, piece_atlas)
 	else:
-		if dir == Vector2i.DOWN:
+		if dir == Vector2i.UP:
 			land_piece()
 			check_rows()
 			piece_type = next_piece_type
