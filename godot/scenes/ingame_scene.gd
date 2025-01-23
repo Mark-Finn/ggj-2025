@@ -48,13 +48,13 @@ var shapes_full := shapes.duplicate()
 
 #grid variables
 const COLS : int = 10
-const ROWS : int = 20
+const ROWS : int = 21
 
 #movement variables
 const directions := [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP]
 var steps : Array
 const steps_req : int = 50
-const start_pos := Vector2i(5, 19)
+const start_pos := Vector2i(5, 20)
 var cur_pos : Vector2i
 var speed : float
 const ACCEL : float = 0.25
@@ -89,7 +89,7 @@ func new_game():
 	score = 0
 	speed = 1.0
 	game_running = true
-	steps = [0, 0, 0] #left, right, down
+	steps = [0, 0, 0] #left, right, up
 	$HUD.get_node("GameOverLabel").hide()
 		#wipe everything
 	clear_piece()
@@ -104,23 +104,29 @@ func new_game():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if game_running:
+		#Handling player input
 		if Input.is_action_pressed("ui_left"):
 			steps[0] += 10
 		elif Input.is_action_pressed("ui_right"):
 			steps[1] += 10
 		elif Input.is_action_pressed("ui_up"):
-			steps[2] -= 10
+			steps[2] += 10
 		elif Input.is_action_pressed("ui_down"):
 			rotate_piece()
 
 
-		#apply downward movement each frame
-		steps[2] -= speed
+		#apply upward movement each frame
+		steps[2] += speed
+		
 		#move piece
 		for i in range(steps.size()):
-			if steps[i] < steps_req:
-				move_piece(directions[i])
+			if steps[i] > steps_req:
+				move_piece(directions[i])#move piece
 				steps[i] = 0
+		
+		
+		print("steps[2]: ", steps[2])
+		print("cur_pos ", cur_pos)
 
 
 func pick_piece():
@@ -138,7 +144,7 @@ func pick_piece():
 func create_piece():
 
 	#reset variables
-	steps = [0, 0, 0] #left, right, down
+	steps = [0, 0, 0] #left, right, up
 	cur_pos = start_pos
 	active_piece = piece_type[rotation_index]
 	draw_piece(active_piece, cur_pos, piece_atlas)
