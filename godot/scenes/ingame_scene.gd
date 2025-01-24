@@ -47,7 +47,7 @@ var shapes := [i, t, o, z, s, l, j]
 var shapes_full := shapes.duplicate()
 
 #grid variables
-const COLS : int = 10
+const COLS : int = 11
 const ROWS : int = 21
 
 #movement variables
@@ -93,7 +93,7 @@ func new_game():
 	$HUD.get_node("GameOverLabel").hide()
 		#wipe everything
 	clear_piece()
-	clear_board()
+	# missing function clear_board()
 	clear_panel()
 	piece_type = pick_piece()
 	piece_atlas = Vector2i(shapes_full.find(piece_type), 0)
@@ -111,7 +111,7 @@ func _process(delta):
 			steps[1] += 10
 		elif Input.is_action_pressed("ui_up"):
 			steps[2] += 10
-		elif Input.is_action_pressed("ui_down"):
+		elif Input.is_action_just_pressed("ui_down"):
 			rotate_piece()
 
 
@@ -123,10 +123,7 @@ func _process(delta):
 			if steps[i] > steps_req:
 				move_piece(directions[i])#move piece
 				steps[i] = 0
-		
-		
-		print("steps[2]: ", steps[2])
-		print("cur_pos ", cur_pos)
+
 
 
 func pick_piece():
@@ -224,14 +221,17 @@ func clear_panel():
 
 # calls shift_rows() when a row is cleared
 func check_rows():
+	var count = 0
 	var row: int = ROWS
 	while row > 0:
-		var count = 0 
+		count = 0
 		for i in range(COLS):
 			if not is_free(Vector2i(i + 1, row)):
 				count += 1
 		# erase row if full
+		print("count: ", count)
 		if count == COLS:
+			print("shift_rows()")
 			shift_rows(row)
 			score += REWARD
 			$HUD.get_node("ScoreLabel").text = "SCORE: " + str(score)
@@ -240,16 +240,21 @@ func check_rows():
 		else:
 			row -= 1
 
-
 func shift_rows(row):
+	print("passfunc")
 	var atlas
 	for i in range(row, 1, -1):
+		print("passi")
 		for j in range(COLS):
+			print("passj")
 			atlas = get_cell_atlas_coords(board_layer, Vector2i(j + 1, i - 1))
 			if atlas == Vector2i(-1, -1):
+				print("passatlas")
 				erase_cell(board_layer, Vector2i(j + 1, i))
 			else:
+				print("else")
 				set_cell(board_layer, Vector2i(j + 1, i), tile_id, atlas)
+			
 
 
 func clear_board():
