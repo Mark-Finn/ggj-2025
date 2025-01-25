@@ -17,7 +17,6 @@ func _populate_array() -> void:
 	for i in range(bubbles_in_row.size()):
 		bubbles_in_row[i] = 0
 		
-	
 
 func _spawn_tetromino() -> void:
 	var tetromino = TETROMINO.instantiate()
