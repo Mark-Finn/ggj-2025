@@ -34,7 +34,8 @@ func _on_placed(bubbles: Array[Bubble], tetromino_position: Vector2) -> void:
 	get_score(bubbles)
 	_spawn_tetromino()
 	
-	
+# Parameter: bubbles is the array of our bubble objects
+# Returns nothing but adds to the total score
 func get_score(bubbles: Array[Bubble]) -> void:
 	for bubble in bubbles:
 		var row = bubble.get_row()
