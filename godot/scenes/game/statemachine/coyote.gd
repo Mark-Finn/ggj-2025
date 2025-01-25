@@ -5,14 +5,14 @@ class_name Coyote
 @export var max_coyote_ticks: int = 3
 @export var min_coyote_ticks: int = 1
 
-var coyote_etries := 0
+var coyote_entries := 0
 var total_ticks := 1
 var ticks_since_last_rotation := 1
 
 
 func enter():
-	coyote_etries += 1
-	if coyote_etries > maximum_entries:
+	coyote_entries += 1
+	if coyote_entries > maximum_entries:
 		Transition.emit(self, 'Placed')
 
 func exit():

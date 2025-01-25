@@ -64,15 +64,17 @@ func _ready() -> void:
 		bubble270.visible = false
 		%Degree270.add_child(bubble270)
 		
-		
+
+# Parameter vec is the direction to move.
+# Parameter ceiling_stick tracks ceiling hits.		
 func try_move(vec: Vector2, ceiling_stick: bool = false) -> bool:
 	if is_position_blocked(vec):
 		return false
-	if ceiling_stick && !is_position_blocked(vec + Vector2(0, -1)):
+	if ceiling_stick && !is_position_blocked(vec + Vector2(0, -2)):
 		return false
 	position += vec * PIXELS_PER_UNIT
 	return true
-	
+
 
 func process_rotate(degrees: int) -> void:
 	var enable_ceiling_stick := is_up_blocked()
