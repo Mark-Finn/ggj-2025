@@ -30,18 +30,26 @@ func _on_placed(bubbles: Array[Bubble], tetromino_position: Vector2) -> void:
 		bubble.position += tetromino_position
 		add_child(bubble)
 		bubble.set_row(-bubble.position.y / PIXELS_PER_UNIT)
-	get_score(bubbles)
+	_scored(bubbles)
 	_spawn_tetromino()
 	
+	
 # Parameter: bubbles is the array of our bubble objects
-# Returns nothing but adds to the total score
-func get_score(bubbles: Array[Bubble]) -> void:
+# Return nothing
+func _scored(bubbles: Array[Bubble]) -> void:
 	for bubble in bubbles:
 		var row = bubble.get_row()
-		if row < 20:
+		if row < NUM_ROWS + 1:
 			bubbles_in_row[row] += 1
-	for row in bubbles_in_row:
-		if row == 10:
-			total_score += 100
-			print(total_score)
-			bubbles_in_row[row] = 0
+	for bubble_row in bubbles_in_row:
+		if bubble_row == 10:
+			var index = bubbles_in_row.find(10, 0)
+			bubble_row = 0
+			_tally_score(bubbles, index)
+	
+	
+func _tally_score(bubbles: Array[Bubble], row: int) -> void:
+	for bubble in bubbles:
+		if bubble.get_row() == row + 1:
+			print(bubble.bubble_score)
+			total_score += bubble.bubble_score
