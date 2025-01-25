@@ -12,13 +12,13 @@ signal Placed
 const PIXELS_PER_UNIT = 32
 
 const TETROMINO_COLORS = {
-	"I": Color(0, 0.824, 0.914),
+	"I": Color(0, 0.941, 0.941),
 	"O": Color(0.902, 0.827, 0),
-	"T": Color(0.765, 0, 0.91),
+	"T": Color(0.627, 0, 0.941),
 	"J": Color(0, 0.51, 0.914),
-	"L": Color(0.89, 0.612, 0),
-	"Z": Color(0.937, 0, 0),
-	"S": Color(0.032, 0.658, 0.773),
+	"L": Color(0.941, 0.627, 0),
+	"Z": Color(0.941, 0, 0),
+	"S": Color(0, 0.941, 0),
 }
 
 const TETROMINO_MAP = {
@@ -157,5 +157,7 @@ func handle_placed() -> void:
 	var bubbles = get_bubbles(true)
 	for bubble in bubbles:
 		bubble.on_place()
+		bubble.animation_place()
+		bubble.animation_idle()
 	Placed.emit(bubbles, position)
 	
