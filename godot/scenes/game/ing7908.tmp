@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://cik30de5gaaah"]
+
+[ext_resource type="Script" path="res://scenes/game/ingame_scene.gd" id="1_s0oxc"]
+[ext_resource type="PackedScene" uid="uid://it8krv030uwn" path="res://scenes/game/playarea/play_area.tscn" id="4_6x0xm"]
+[ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="4_dkp7h"]
+[ext_resource type="AudioStream" uid="uid://dakxtc7ahssr" path="res://music/ProjectZodiac-mainloop.wav" id="5_3afph"]
+[ext_resource type="AudioStream" uid="uid://blqt0qw1uhrrw" path="res://music/ProjectZodiac-loopintro.wav" id="5_eqvtv"]
+[ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="5_kwkh4"]
+
+[node name="IngameScene" type="Node2D"]
+script = ExtResource("1_s0oxc")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="FadeOverlay" parent="UI" instance=ExtResource("4_dkp7h")]
+unique_name_in_owner = true
+visible = false
+
+[node name="PauseOverlay" parent="UI" instance=ExtResource("5_kwkh4")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+
+[node name="PlayArea" parent="." instance=ExtResource("4_6x0xm")]
+position = Vector2(288, 288)
+scale = Vector2(0.45, 0.45)
+
+[node name="IntroMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_eqvtv")
+volume_db = -3.714
+autoplay = true
+bus = &"Music"
+
+[node name="LoopMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_3afph")
+bus = &"Music"
