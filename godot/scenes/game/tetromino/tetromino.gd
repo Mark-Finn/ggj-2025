@@ -157,7 +157,6 @@ func handle_placed() -> void:
 	var bubbles = get_bubbles(true)
 	for bubble in bubbles:
 		bubble.on_place()
-		bubble.animation_place()
-		bubble.animation_idle()
+		bubble.animation_place(%GameClock.wait_time)
 	Placed.emit(bubbles, position)
 	
