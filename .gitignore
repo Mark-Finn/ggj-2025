@@ -14,3 +14,6 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+godot/ui/theme.tres
+godot/i18n/translation.de.translation
+godot/i18n/translation.en.translation

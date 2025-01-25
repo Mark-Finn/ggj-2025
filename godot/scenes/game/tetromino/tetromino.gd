@@ -79,6 +79,12 @@ func try_move(vec: Vector2, force: bool = false) -> bool:
 	return true
 	
 
+func slam_time(vec: Vector2, force: bool = false) -> void:
+	while !is_position_blocked(vec) && not force:
+		position += vec * PIXELS_PER_UNIT
+		break
+	
+
 func process_rotate(degrees: int) -> void:
 	var previous_bubbles = get_bubbles()
 	_current_rotation = (_current_rotation + degrees) % 360

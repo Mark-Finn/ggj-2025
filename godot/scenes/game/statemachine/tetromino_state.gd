@@ -24,16 +24,19 @@ func process(delta: float) -> void:
 	if Input.is_action_just_pressed("rotate_right"):
 		tetromino.process_rotate(270)	
 		return
-	if Input.is_action_just_pressed("rotate_180"):
+	if Input.is_action_just_pressed("rotate_180") && tetromino.letter != "I":
 		tetromino.process_rotate(180)
 		return
 	
 	var left_pressed = Input.is_action_pressed("left")
 	var right_pressed = Input.is_action_pressed("right")
 	var up_pressed = Input.is_action_pressed("up")
+	var slam_pressed = Input.is_action_pressed("slam")
 	
 	if left_pressed && right_pressed:
 		return
+	elif slam_pressed:
+		tetromino.slam_time(Vector2.UP)
 	elif left_pressed && (_next_left_time < 0 || Input.is_action_just_pressed("left")):
 		if tetromino.try_move(Vector2.LEFT):
 			_next_left_time = HOLD_MOVE_PERIOD
