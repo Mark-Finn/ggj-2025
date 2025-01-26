@@ -202,6 +202,11 @@ modulate = Color(0.903642, 0.764307, 0.787197, 1)
 position = Vector2(309, 208)
 scale = Vector2(0.4393, 0.441159)
 
+[node name="Bubble19" parent="Bubbles" instance=ExtResource("7_g0lrd")]
+modulate = Color(0.980115, 0.535101, 0.719386, 1)
+position = Vector2(106, 74)
+scale = Vector2(6.7644, 2.14611)
+
 [node name="TetrisBackgroundGrayscale" type="Sprite2D" parent="."]
 show_behind_parent = true
 position = Vector2(289, 162.5)
