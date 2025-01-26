@@ -15,7 +15,10 @@ var column
 var score = 1
 
 func get_powerup() -> PowerUp:
-	return $PowerUp
+	for child in get_children():
+		if child is PowerUp:
+			return child
+	return null
 
 func pop(ordinal: int) -> void:
 	await get_tree().create_timer(ordinal * NEXT_BUBBLE_WAIT).timeout 
@@ -50,8 +53,8 @@ func animation_place(game_tick_length:float) -> void:
 
 func animation_pop() -> void:
 	%BubbleAnimationPlayer.speed_scale = 1 / BUBBLE_POP_DURATION
-	if $PowerUp != null:
-		if $PowerUp.type == "mult":
+	if get_powerup() != null:
+		if get_powerup().type == "mult":
 			%BubbleAnimationPlayer.play("popMult")
 		else:
 			%BubbleAnimationPlayer.play("popFlat")

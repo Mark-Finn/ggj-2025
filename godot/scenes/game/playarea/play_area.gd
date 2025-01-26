@@ -79,7 +79,7 @@ func _spawn_tetromino() -> void:
 	tetromino.position = spawn_pos * PIXELS_TO_UNITS
 	var tetromino_selected := int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size() - 1)))
 	tetromino.letter = Tetromino.TETROMINO_MAP.keys()[tetromino_selected] #picks random letter from tetromino maps
-	tetronimo_max += 1.0 / 4.0
+	tetronimo_max += 1.0
 	tetromino.Placed.connect(_on_placed)
 	add_child(tetromino)
 	
