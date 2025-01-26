@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=18 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="Script" path="res://scenes/game/ingame_scene.gd" id="1_s0oxc"]
 [ext_resource type="PackedScene" uid="uid://it8krv030uwn" path="res://scenes/game/playarea/play_area.tscn" id="4_6x0xm"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="5_kwkh4"]
 [ext_resource type="FontFile" uid="uid://csjn7ryho7u8v" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="10_0clc1"]
 [ext_resource type="Script" path="res://scenes/game/score.gd" id="15_wud1j"]
-[ext_resource type="Script" path="res://scenes/game/hud.gd" id="16_vr01u"]
 [ext_resource type="FontFile" uid="uid://d3gm5h1sk3aow" path="res://fonts/tetris.ttf" id="17_y720u"]
 [ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="18_o52xn"]
 
@@ -153,7 +152,6 @@ bus = &"Music"
 script = ExtResource("15_wud1j")
 
 [node name="HUD" type="Node2D" parent="Score"]
-script = ExtResource("16_vr01u")
 
 [node name="Label" type="RichTextLabel" parent="Score/HUD"]
 top_level = true

@@ -48,12 +48,8 @@ func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 # Updates the HUD label with the new total score
 func update_score_label(score: int, increase: float, is_addition: bool):
 	
-	#start animation
-	var animation_player = $HUD/AnimationPlayer
-	animation_player.play("float_bubble")
-	
 	 #start score label
-	var score_label =  $HUD/AnimationPlayer/Label
+	var score_label =  $HUD/Label
 	if increase == 0:
 		score_label.text = str(score)
 	elif is_addition:
