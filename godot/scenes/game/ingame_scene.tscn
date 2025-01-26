@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=27 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="Script" path="res://scenes/game/ingame_scene.gd" id="1_s0oxc"]
 [ext_resource type="PackedScene" uid="uid://it8krv030uwn" path="res://scenes/game/playarea/play_area.tscn" id="4_6x0xm"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://scenes/game/score.gd" id="15_wud1j"]
 [ext_resource type="Script" path="res://scenes/game/hud.gd" id="16_vr01u"]
 [ext_resource type="FontFile" uid="uid://d3gm5h1sk3aow" path="res://fonts/tetris.ttf" id="17_y720u"]
+[ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="18_o52xn"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_fbvm3"]
 shuffle = true
@@ -34,6 +35,109 @@ stream_7 = ExtResource("14_qu3nv")
 
 [sub_resource type="Theme" id="Theme_vvnv4"]
 default_font = ExtResource("17_y720u")
+
+[sub_resource type="Animation" id="Animation_egk88"]
+resource_name = "game_start"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 0.31864),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gspw8"]
+resource_name = "background_idle"
+length = 20.0
+loop_mode = 1
+step = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1.15514e-06, 0.507043, 0.614121, 1), Color(0.286016, 0.379101, 1, 1), Color(0.676758, 0.00330042, 0.956334, 1), Color(0.788073, 0.000296293, 0.739309, 1), Color(0.870416, 0, 0.404711, 1), Color(0.784683, 0.304151, 0.0505023, 1), Color(0.548268, 0.418935, 9.62615e-08, 1), Color(0.453561, 0.522096, 5.77569e-07, 1), Color(5.05373e-07, 0.541398, 0.344586, 1), Color(0.473976, 0.473976, 0.473976, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_75fpl"]
+resource_name = "score_flash"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.7, 1.3, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1, 1, 1, 1), Color(0.552956, 0.552956, 0.552956, 1), Color(0.400698, 0.400698, 0.400698, 1), Color(0.223103, 0.223103, 0.223103, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eps2t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.288518, 0.288518, 0.288518, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.748302, 0.850512, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7m3f3"]
+resource_name = "game_pause"
+step = 2.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_833s5"]
+_data = {
+"RESET": SubResource("Animation_eps2t"),
+"background_idle": SubResource("Animation_gspw8"),
+"game_pause": SubResource("Animation_7m3f3"),
+"game_start": SubResource("Animation_egk88"),
+"score_flash": SubResource("Animation_75fpl")
+}
 
 [node name="IngameScene" type="Node2D"]
 script = ExtResource("1_s0oxc")
@@ -88,5 +192,19 @@ theme_override_fonts/normal_font = ExtResource("17_y720u")
 bbcode_enabled = true
 fit_content = true
 autowrap_mode = 2
+
+[node name="TetrisBackgroundGrayscale" type="Sprite2D" parent="."]
+modulate = Color(0, 0.748302, 0.850512, 1)
+self_modulate = Color(0.288518, 0.288518, 0.288518, 1)
+show_behind_parent = true
+position = Vector2(288.5, 162.5)
+scale = Vector2(0.18592, 0.227083)
+texture = ExtResource("18_o52xn")
+
+[node name="backgroundanimations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_833s5")
+}
 
 [connection signal="PoppedBubbles" from="PlayArea" to="Score" method="_on_play_area_popped_bubbles"]

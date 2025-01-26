@@ -12,6 +12,9 @@ func _ready() -> void:
 		SaveGame.load_game(get_tree())
 	
 	pause_overlay.game_exited.connect(_save_game)
+	
+	%backgroundanimations.play("game_start")
+	%backgroundanimations.queue("background_idle")
 
 func _input(event) -> void:
 	if event.is_action_pressed("pause") and not pause_overlay.visible:
