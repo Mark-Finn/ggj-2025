@@ -10,7 +10,11 @@ const NEXT_BUBBLE_WAIT = 0.05
 var row 
 var column
 var score = 10
-	
+
+
+
+func get_powerup() -> PowerUp:
+	return $PowerUp
 
 func pop(ordinal: int) -> void:
 	await get_tree().create_timer(ordinal * NEXT_BUBBLE_WAIT).timeout 
@@ -46,3 +50,14 @@ func animation_coyote_input(game_tick_length:float) -> void:
 	if $BubbleAnimationPlayer.current_animation != "coyote": 
 		%BubbleAnimationPlayer.speed_scale = 4 * (DEFAULT_TICK/game_tick_length)
 		%BubbleAnimationPlayer.play("coyote")
+
+
+func _on_power_up_tree_entered() -> void:
+	%Bubble.visible = false
+	if $PowerUp.type == "mult":
+		%Mult2.visible = true
+		#%Mult2.position = %Bubble.position
+	else:
+		%Flat10.visible = true
+		#%Mult2.position = %Bubble.position
+	pass # Replace with function body.

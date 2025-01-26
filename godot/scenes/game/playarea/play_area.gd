@@ -9,16 +9,19 @@ signal PoppedBubbles
 
 # Constanst
 const TETROMINO = preload("res://scenes/game/tetromino/tetromino.tscn")
+const POWERUP = preload("res://scenes/game/powerup/power_up.tscn")
 const PIXELS_TO_UNITS = 32
 const NUM_ROWS = 24
 
 
+ 
 # Global Variables
 var bubble_grid: Dictionary = {}
 var spawn_pos: Vector2i
 var total_score = 0
 var index = -1
 var tetronimo_max = 6
+var powerup_grid: Dictionary = {}
 
 
 
@@ -28,6 +31,18 @@ func is_position_blocked(pos: Vector2) -> bool:
 		|| !bubble_grid[pos_i.y].has(pos_i.x) \
 		|| bubble_grid[pos_i.y][pos_i.x] != null
 		
+func get_position_powerup(pos: Vector2) -> PowerUp:
+	var pos_i = _to_vector2i(pos)
+	var has_powerup = !powerup_grid.has(pos_i.y) \
+		|| !powerup_grid[pos_i.y].has(pos_i.x) \
+		|| powerup_grid[pos_i.y][pos_i.x] != null
+	if not has_powerup: 
+		return null
+	var temp = powerup_grid[pos_i.y][pos_i.x]
+	powerup_grid[pos_i.y][pos_i.x] = null
+	remove_child(temp)
+	return temp
+		
 		
 func _to_vector2i(vec: Vector2) -> Vector2i:
 	return Vector2i(int(round(vec.x)), int(round(vec.y)))
@@ -36,13 +51,14 @@ func _to_vector2i(vec: Vector2) -> Vector2i:
 func _ready() -> void:
 	for row in %Grid.height:
 		bubble_grid[row] = {}
+		powerup_grid[row] = {}
 		for col in %Grid.width:
 			bubble_grid[row][col] = null
+			powerup_grid[row][col] = null
 			
 	spawn_pos = Vector2i(int(%Grid.width / 2), %Grid.height - 5) # todo fix
-			
 	_spawn_tetromino()
-	
+	_spawn_powerup()
 	
 func _spawn_tetromino() -> void:
 	var tetromino = TETROMINO.instantiate()
@@ -54,6 +70,21 @@ func _spawn_tetromino() -> void:
 	tetromino.Placed.connect(_on_placed)
 	add_child(tetromino)
 	
+func _spawn_powerup() -> void:
+	var powerup = POWERUP.instantiate()
+	var spawn_spot = Vector2i(int(%Grid.width / 2), %Grid.height - 10) #add pick random empty spot with no powerup
+	powerup.position =  spawn_spot * PIXELS_TO_UNITS
+	var powerup_selected = randf()
+	if powerup_selected > .5:
+		powerup.type = "mult"
+	else: powerup.type = "flat"
+	var power_row := int(powerup.position.y / PIXELS_TO_UNITS)
+	var power_col := int(powerup.position.x / PIXELS_TO_UNITS)
+	powerup.row = power_row
+	powerup.column = power_col
+	#assert(powerup_grid[power_row][power_col] == null)
+	powerup_grid[power_row][power_col] = powerup
+	add_child(powerup)
 	
 func _on_placed(bubbles: Array[Bubble], tetromino_position: Vector2) -> void:
 	var num_bubbles = 0
