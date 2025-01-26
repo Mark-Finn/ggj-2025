@@ -115,6 +115,7 @@ autoplay = true
 bus = &"Music"
 
 [node name="Bubbles" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Bubble" parent="Bubbles" instance=ExtResource("7_g0lrd")]
 modulate = Color(0.821991, 0.816483, 0.593899, 1)
