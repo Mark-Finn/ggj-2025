@@ -2,6 +2,9 @@ extends Node2D
 class_name Bubble
 
 
+signal BubblePopped
+
+
 const DEFAULT_TICK = .5
 const BUBBLE_POP_DURATION = 0.5
 const NEXT_BUBBLE_WAIT = 0.05
@@ -17,9 +20,11 @@ func get_powerup() -> PowerUp:
 	return $PowerUp
 
 func pop(ordinal: int) -> void:
+	make_pop_sound()
 	await get_tree().create_timer(ordinal * NEXT_BUBBLE_WAIT).timeout 
 	animation_pop()
 	await %BubbleAnimationPlayer.animation_finished
+	BubblePopped.emit()
 	queue_free()
 	
 func change_position_after_pop(pos: Vector2) -> Signal:
@@ -57,3 +62,6 @@ func animation_coyote_input(game_tick_length:float) -> void:
 	if $BubbleAnimationPlayer.current_animation != "coyote": 
 		%BubbleAnimationPlayer.speed_scale = 4 * (DEFAULT_TICK/game_tick_length)
 		%BubbleAnimationPlayer.play("coyote")
+	
+func make_pop_sound() -> void:
+	%PopSound.play()

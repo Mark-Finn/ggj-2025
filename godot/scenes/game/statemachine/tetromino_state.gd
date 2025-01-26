@@ -6,7 +6,7 @@ signal Transition
 var tetromino: Tetromino
 var game_clock: Timer
 
-var HOLD_MOVE_PERIOD = 0.15
+var HOLD_MOVE_PERIOD = 0.09
 
 static var _next_left_time: float = 0
 static var _next_right_time: float = 0
@@ -27,7 +27,7 @@ func process(delta: float) -> void:
 		degrees = 90
 	elif Input.is_action_just_pressed("rotate_right"):
 		degrees = 270
-	elif Input.is_action_just_pressed("rotate_180") && tetromino.letter != "I":
+	elif Input.is_action_just_pressed("rotate_180"):
 		degrees = 180
 		
 	if degrees > 0:
