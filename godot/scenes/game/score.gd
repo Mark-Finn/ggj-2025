@@ -46,12 +46,23 @@ func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 
 # Updates the HUD label with the new total score
 func update_score_label(score: int, additive: float, multiplicative: float):
+	var score_string = str(score)
+	score *= 99_999_99
+	if score > 99_999_99:
+		score_string = to_scientific_notation(score)
 	var score_label =  $HUD/Label
 	if additive == 0:
-		score_label.text = str("Score:\n") + str(score)
+		score_label.text = str("Score:\n") + score_string
 	else:
-		score_label.text = str("Score:\n") + str(score) + str(" + ") + str(additive) + str(" x ") + str(multiplicative)
+		score_label.text = str("Score:\n") + score_string + " + " + str(additive) + " x " + str(multiplicative)
 	
+	
+func to_scientific_notation(number: float) -> String:
+	var exponent = floor(log(abs(number)) / log(10))
+	var mantissa = number / pow(10, exponent)
+	var s = ("%1.2f" % mantissa)
+	return s + "e" + str(exponent)
+
 
 # Adds commas to the total score integer to make the score more readable.
 func thousands_sep(number: int, prefix=''):

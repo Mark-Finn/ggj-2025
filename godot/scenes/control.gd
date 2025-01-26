@@ -11,14 +11,21 @@ func _ready():
 
 
 func _input(event):
+	var keep_highlights: Dictionary = {}
 	if event is InputEventKey:
 		for key in key_labels.keys():
 			var label: Label = key_labels[key]
 			if Input.is_key_pressed(event.keycode) and OS.get_keycode_string(event.keycode) == key:
-				await flash_key(label)
-
+				keep_highlights[key] = true
+				flash_key(label)
+		
+		for key in key_labels.keys():
+			if not keep_highlights.has(key):
+				remove_highlight(key_labels[key])
 
 func flash_key(label: Label):
-	label.add_theme_color_override("font_color", Color(0, 128, 128)) # Change to red
-	await get_tree().create_timer(0.2).timeout      # Flash for 0.2 seconds
-	label.add_theme_color_override("font_color", Color(1, 1, 1))           # Revert to default
+	label.add_theme_color_override("font_color", Color(0, 128, 128)) 
+
+	
+func remove_highlight(label: Label):
+	label.add_theme_color_override("font_color", Color(1, 1, 1)) 
