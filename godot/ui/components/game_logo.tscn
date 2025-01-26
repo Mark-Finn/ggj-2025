@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4blrdjthcxnn"]
 
-[ext_resource type="Texture2D" uid="uid://6j2qc8d51kck" path="res://visualassets/Slortiz.png" id="1_hehcu"]
+[ext_resource type="Texture2D" uid="uid://dem0jrd0a747g" path="res://visualassets/Slortiz_streetartstyle2.png" id="1_xjvvc"]
 
 [node name="GameLogo" type="CenterContainer"]
 offset_right = 128.0
@@ -15,5 +15,6 @@ theme_override_constants/margin_bottom = 10
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
-texture = ExtResource("1_hehcu")
-stretch_mode = 2
+texture = ExtResource("1_xjvvc")
+expand_mode = 5
+stretch_mode = 1

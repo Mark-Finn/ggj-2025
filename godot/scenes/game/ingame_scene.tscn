@@ -1,125 +1,44 @@
-[gd_scene load_steps=23 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=18 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="Script" path="res://scenes/game/ingame_scene.gd" id="1_s0oxc"]
 [ext_resource type="PackedScene" uid="uid://it8krv030uwn" path="res://scenes/game/playarea/play_area.tscn" id="4_6x0xm"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="4_dkp7h"]
-[ext_resource type="AudioStream" uid="uid://dakxtc7ahssr" path="res://music/ProjectZodiac-mainloop.wav" id="5_3afph"]
-[ext_resource type="AudioStream" uid="uid://blqt0qw1uhrrw" path="res://music/ProjectZodiac-loopintro.wav" id="5_eqvtv"]
+[ext_resource type="AudioStream" uid="uid://fqdoir6qfwav" path="res://music/projectzodiac-smoothmainloop.mp3" id="5_5qqrv"]
+[ext_resource type="AudioStream" uid="uid://cjh78fvm1xn6h" path="res://music/projectzodiac-smoothintro.mp3" id="5_7veen"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="5_kwkh4"]
-[ext_resource type="FontFile" uid="uid://csjn7ryho7u8v" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="9_5kygf"]
-[ext_resource type="PackedScene" uid="uid://1c257f21k3oc" path="res://scenes/game/tetromino/bubble.tscn" id="10_ab13b"]
 [ext_resource type="Script" path="res://scenes/game/score.gd" id="15_wud1j"]
 [ext_resource type="Script" path="res://scenes/game/hud.gd" id="16_vr01u"]
-[ext_resource type="Texture2D" path="res://visualassets/Tetris Background grayscale.png" id="18_o52xn"]
-
-[sub_resource type="Animation" id="Animation_86aho"]
-resource_name = "float_animation"
-length = 8.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationPlayer/Label:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 4, 8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_a18ko"]
-length = 8.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationPlayer/Label:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 4, 8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%Bubble:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 4, 8),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(4.10208, 2.44141), Vector2(4.152, 2.471), Vector2(4.10208, 2.44141)]
-}
-
-[sub_resource type="Animation" id="Animation_sgx3t"]
-resource_name = "float_bubble"
-length = 4.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimationPlayer/Label:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("%Bubble:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2, 4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(4.10208, 2.44141), Vector2(4.152, 2.471), Vector2(4.10208, 2.44141)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ugcak"]
-_data = {
-"RESET": SubResource("Animation_a18ko"),
-"float_animation": SubResource("Animation_86aho"),
-"float_bubble": SubResource("Animation_sgx3t")
-}
+[ext_resource type="FontFile" uid="uid://d3gm5h1sk3aow" path="res://fonts/tetris.ttf" id="17_y720u"]
+[ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="18_o52xn"]
 
 [sub_resource type="Theme" id="Theme_vvnv4"]
-default_font = ExtResource("9_5kygf")
+default_font = ExtResource("17_y720u")
 
 [sub_resource type="Animation" id="Animation_eps2t"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0.748302, 0.850512, 1)]
+"values": [Color(0.288518, 0.288518, 0.288518, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/1/path = NodePath("TetrisBackgroundGrayscale:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.288518, 0.288518, 0.288518, 1)]
+"values": [Color(0, 0.748302, 0.850512, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_gspw8"]
@@ -150,24 +69,24 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(1, 0.31864),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/1/path = NodePath("TetrisBackgroundGrayscale:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 0.31864),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
 }
@@ -213,19 +132,20 @@ process_mode = 2
 visible = false
 
 [node name="PlayArea" parent="." instance=ExtResource("4_6x0xm")]
-position = Vector2(35, 25)
-scale = Vector2(0.45, 0.45)
+position = Vector2(21, 25)
+scale = Vector2(0.48, 0.48)
 
 [node name="IntroMusic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("5_eqvtv")
-volume_db = -3.714
+stream = ExtResource("5_7veen")
+volume_db = -8.0
 autoplay = true
 bus = &"Music"
 
 [node name="LoopMusic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("5_3afph")
+stream = ExtResource("5_5qqrv")
+volume_db = -8.0
 bus = &"Music"
 
 [node name="Score" type="Node2D" parent="."]
@@ -234,30 +154,19 @@ script = ExtResource("15_wud1j")
 [node name="HUD" type="Node2D" parent="Score"]
 script = ExtResource("16_vr01u")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Score/HUD"]
-libraries = {
-"": SubResource("AnimationLibrary_ugcak")
-}
-
-[node name="Label" type="Label" parent="Score/HUD/AnimationPlayer"]
+[node name="Label" type="RichTextLabel" parent="Score/HUD"]
 top_level = true
 offset_left = 473.0
 offset_top = 32.0
 offset_right = 561.0
 offset_bottom = 70.0
 theme = SubResource("Theme_vvnv4")
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_fonts/normal_font = ExtResource("17_y720u")
+bbcode_enabled = true
+fit_content = true
 autowrap_mode = 2
-
-[node name="Bubble" parent="Score/HUD" instance=ExtResource("10_ab13b")]
-unique_name_in_owner = true
-visible = false
-position = Vector2(512, 54)
-scale = Vector2(4.10208, 2.44141)
 
 [node name="ScoreAnimations" type="AnimationPlayer" parent="Score"]
 unique_name_in_owner = true

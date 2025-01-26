@@ -1,30 +1,27 @@
-[gd_scene load_steps=17 format=3 uid="uid://dv2y18ye8j7o0"]
+[gd_scene load_steps=16 format=3 uid="uid://dv2y18ye8j7o0"]
 
 [ext_resource type="Script" path="res://scenes/ui/mainmenu/main_menu_scene.gd" id="1_1foie"]
 [ext_resource type="PackedScene" uid="uid://cik30de5gaaah" path="res://scenes/game/ingame_scene.tscn" id="2_nl5i6"]
 [ext_resource type="PackedScene" uid="uid://g4qhvbvdm62w" path="res://scenes/ui/settings/game_settings_scene.tscn" id="3_dgs4d"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="3_kf1us"]
 [ext_resource type="PackedScene" uid="uid://b4blrdjthcxnn" path="res://ui/components/game_logo.tscn" id="4_fnufg"]
-[ext_resource type="FontFile" uid="uid://csjn7ryho7u8v" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="5_8ksql"]
-[ext_resource type="AudioStream" uid="uid://cyru18k5byy8p" path="res://music/ProjectZodiac-menumusic.wav" id="6_pma5s"]
-[ext_resource type="Texture2D" path="res://visualassets/Slortiz_streetartstyle2.png" id="6_qps5d"]
+[ext_resource type="FontFile" uid="uid://d3gm5h1sk3aow" path="res://fonts/tetris.ttf" id="5_lsnja"]
+[ext_resource type="Texture2D" uid="uid://dem0jrd0a747g" path="res://visualassets/Slortiz_streetartstyle2.png" id="6_qps5d"]
 [ext_resource type="PackedScene" uid="uid://1c257f21k3oc" path="res://scenes/game/tetromino/bubble.tscn" id="7_g0lrd"]
-[ext_resource type="Texture2D" path="res://visualassets/Tetris Background grayscale.png" id="10_eh7la"]
+[ext_resource type="AudioStream" uid="uid://b3vseqobyi2ny" path="res://music/projectzodiac-menuloop.mp3" id="8_fwsfs"]
+[ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="10_eh7la"]
 
 [sub_resource type="Theme" id="Theme_0w7ns"]
-default_font = ExtResource("5_8ksql")
+default_font = ExtResource("5_lsnja")
 
 [sub_resource type="Theme" id="Theme_w70il"]
-default_font = ExtResource("5_8ksql")
+default_font = ExtResource("5_lsnja")
 
 [sub_resource type="Theme" id="Theme_5g78v"]
-default_font = ExtResource("5_8ksql")
+default_font = ExtResource("5_lsnja")
 
 [sub_resource type="Theme" id="Theme_cmb8b"]
-default_font = ExtResource("5_8ksql")
-
-[sub_resource type="Theme" id="Theme_u1cu4"]
-default_font = ExtResource("5_8ksql")
+default_font = ExtResource("5_lsnja")
 
 [sub_resource type="LabelSettings" id="LabelSettings_2ikbh"]
 font_size = 8
@@ -59,7 +56,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_0w7ns")
-theme_override_fonts/font = ExtResource("5_8ksql")
+theme_override_fonts/font = ExtResource("5_lsnja")
 text = "continue"
 alignment = 0
 
@@ -69,7 +66,7 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = SubResource("Theme_w70il")
-theme_override_fonts/font = ExtResource("5_8ksql")
+theme_override_fonts/font = ExtResource("5_lsnja")
 text = "new_game"
 alignment = 0
 
@@ -79,7 +76,7 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = SubResource("Theme_5g78v")
-theme_override_fonts/font = ExtResource("5_8ksql")
+theme_override_fonts/font = ExtResource("5_lsnja")
 text = "settings"
 alignment = 0
 
@@ -89,7 +86,7 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = SubResource("Theme_cmb8b")
-theme_override_fonts/font = ExtResource("5_8ksql")
+theme_override_fonts/font = ExtResource("5_lsnja")
 text = "Quit"
 alignment = 0
 
@@ -100,8 +97,6 @@ theme_override_constants/margin_top = 10
 
 [node name="Label" type="Label" parent="UI/CenterContainer/VBoxContainer/Credits"]
 layout_mode = 2
-theme = SubResource("Theme_u1cu4")
-theme_override_fonts/font = ExtResource("5_8ksql")
 text = "credits"
 label_settings = SubResource("LabelSettings_2ikbh")
 horizontal_alignment = 1
@@ -115,8 +110,10 @@ texture = ExtResource("6_qps5d")
 unique_name_in_owner = true
 visible = false
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_pma5s")
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("8_fwsfs")
+volume_db = -3.0
 autoplay = true
 bus = &"Music"
 

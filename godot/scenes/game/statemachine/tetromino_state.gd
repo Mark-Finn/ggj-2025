@@ -6,7 +6,7 @@ signal Transition
 var tetromino: Tetromino
 var game_clock: Timer
 
-var HOLD_MOVE_PERIOD = 0.06
+var HOLD_MOVE_PERIOD = 0.09
 
 static var _next_left_time: float = 0
 static var _next_right_time: float = 0

@@ -7,17 +7,24 @@ const CONSECUTIVE_BUBBLE_POP = 10.0
 signal PoppedBubbles
 
 
+@export var min_tetrominos_per_powerup := 2
+@export var max_tetrominos_per_powerup := 5
+
+
 # Constanst
 const TETROMINO = preload("res://scenes/game/tetromino/tetromino.tscn")
+const POWERUP = preload("res://scenes/game/powerup/power_up.tscn")
 const PIXELS_TO_UNITS = 32
-const NUM_ROWS = 24
 
-
+ 
 # Global Variables
 var bubble_grid: Dictionary = {}
-var spawn_pos: Vector2i
-var tetronimo_max = 7
-
+var total_score := 0
+var index := -1
+var powerup_grid: Dictionary = {}
+var tetronimo_max := 7.0
+var tetrominos_until_power_up: int
+var max_tetromino_radius := 0
 
 
 func is_position_blocked(pos: Vector2) -> bool:
@@ -28,6 +35,18 @@ func is_position_blocked(pos: Vector2) -> bool:
 		|| !bubble_grid[pos_i.y].has(pos_i.x) \
 		|| bubble_grid[pos_i.y][pos_i.x] != null
 		
+func get_position_powerup(pos: Vector2) -> PowerUp:
+	var pos_i = _to_vector2i(pos)
+	var off_grid_or_no_power_up = !powerup_grid.has(pos_i.y) \
+		|| !powerup_grid[pos_i.y].has(pos_i.x) \
+		|| powerup_grid[pos_i.y][pos_i.x] == null
+	if off_grid_or_no_power_up: 
+		return null
+	var temp = powerup_grid[pos_i.y][pos_i.x]
+	powerup_grid[pos_i.y][pos_i.x] = null
+	remove_child(temp)
+	return temp
+		
 		
 func _to_vector2i(vec: Vector2) -> Vector2i:
 	return Vector2i(int(round(vec.x)), int(round(vec.y)))
@@ -36,22 +55,60 @@ func _to_vector2i(vec: Vector2) -> Vector2i:
 func _ready() -> void:
 	for row in %Grid.height:
 		bubble_grid[row] = {}
+		powerup_grid[row] = {}
 		for col in %Grid.width:
 			bubble_grid[row][col] = null
+			powerup_grid[row][col] = null
 			
-	spawn_pos = Vector2i(int(%Grid.width / 2), %Grid.height - 1)
+	for letter in Tetromino.TETROMINO_MAP.keys():
+		for vec in Tetromino.TETROMINO_MAP[letter]:
+			max_tetromino_radius = max(max_tetromino_radius, int(abs(vec.x)))
 			
+	tetrominos_until_power_up = randi_range(min_tetrominos_per_powerup >> 1, max_tetrominos_per_powerup >> 1)
 	_spawn_tetromino()
 	
 	
 func _spawn_tetromino() -> void:
+	tetrominos_until_power_up -= 1
+	if tetrominos_until_power_up <= 0:
+		_spawn_powerup()
+		
+	var spawn_col = randi_range(max_tetromino_radius, %Grid.width - 1 - max_tetromino_radius)
+	var spawn_pos = Vector2i(spawn_col, %Grid.height - 1)
 	var tetromino = TETROMINO.instantiate()
 	tetromino.position = spawn_pos * PIXELS_TO_UNITS
-	var tetromino_selected = int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size() - 1)))
+	var tetromino_selected := int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size() - 1)))
 	tetromino.letter = Tetromino.TETROMINO_MAP.keys()[tetromino_selected] #picks random letter from tetromino maps
 	tetronimo_max += 1.0 / 4.0
 	tetromino.Placed.connect(_on_placed)
 	add_child(tetromino)
+	
+	
+func _spawn_powerup() -> void:
+	tetrominos_until_power_up = randi_range(min_tetrominos_per_powerup, max_tetrominos_per_powerup)
+	var powerup = POWERUP.instantiate()
+	var spawn_spot = _get_random_empty_cell()
+	powerup.position = spawn_spot * PIXELS_TO_UNITS
+	powerup.type = ["mult", "flat"].pick_random()
+	
+	var power_row: int = spawn_spot.y
+	var power_col: int = spawn_spot.x
+	powerup_grid[power_row][power_col] = powerup
+	add_child(powerup)
+	
+	
+# returned as Vector2i(col, row)
+func _get_random_empty_cell() -> Vector2i:
+	var available := {}
+	for row in range(%Grid.height):
+		for col in range(%Grid.width):
+			if bubble_grid[row][col] == null && powerup_grid[row][col] == null:
+				if not available.has(row):
+					available[row] = {}
+				available[row][col] = true
+	var random_row = available.keys().pick_random()
+	var random_col = available[random_row].keys().pick_random()
+	return Vector2i(random_col, random_row)
 	
 	
 func _on_placed(bubbles: Array[Bubble], tetromino_position: Vector2) -> void:
@@ -149,13 +206,14 @@ func _handle_popped_bubbles(bubbles_positions: Array[Vector2i]) -> void:
 			bubble_shifts[below_position] += 1
 			
 	var ordinal: int = 0
-	for bubble in bubbles:
-		bubble.pop(ordinal)
-		ordinal += 1
 	
 	PoppedBubbles.emit(bubbles)
 	
-	await get_tree().create_timer(ordinal * .03).timeout #fix
+	for bubble in bubbles:
+		bubble.pop(ordinal)
+		ordinal += 1
+		
+	await bubbles.back().BubblePopped
 	
 	var finished_falling = false
 	for row in range(0,  %Grid.height):
@@ -183,8 +241,8 @@ var _GAME_OVER: Array[Vector2] = [
 	Vector2(6, 3), Vector2(6, 2), Vector2(6, 1), Vector2(7, 0), Vector2(8, 0), Vector2(9, 0), 
 	Vector2(7, 3), Vector2(8, 3), Vector2(9, 3), Vector2(10, 1), Vector2(10, 2), Vector2(10, 3), 
 	Vector2(10, 4), Vector2(10, 5), Vector2(10, 6), Vector2(12, 6), Vector2(12, 5), Vector2(12, 4),
-	 Vector2(12, 3), Vector2(12, 2), Vector2(12, 1), Vector2(12, 0), Vector2(13, 1), Vector2(14, 2),
-	 Vector2(14, 3), Vector2(15, 1), Vector2(16, 0), Vector2(16, 1), Vector2(16, 2), Vector2(16, 3), 
+	Vector2(12, 3), Vector2(12, 2), Vector2(12, 1), Vector2(12, 0), Vector2(13, 1), Vector2(14, 2),
+	Vector2(14, 3), Vector2(15, 1), Vector2(16, 0), Vector2(16, 1), Vector2(16, 2), Vector2(16, 3), 
 	Vector2(16, 4), Vector2(16, 5), Vector2(16, 6), Vector2(18, 0), Vector2(18, 1), Vector2(18, 2), 
 	Vector2(18, 3), Vector2(18, 4), Vector2(18, 5), Vector2(18, 6), Vector2(19, 6), Vector2(20, 6), 
 	Vector2(21, 6), Vector2(19, 3), Vector2(19, 0), Vector2(20, 0), Vector2(21, 0), Vector2(20, 3), 

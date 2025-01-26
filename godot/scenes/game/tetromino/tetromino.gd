@@ -4,7 +4,6 @@ class_name Tetromino
 
 signal Placed
 
-
 @export_enum("I", "O", "T", "J", "L", "S", "Z") var letter: String = "T"
 
 var play_area: PlayArea
@@ -39,26 +38,34 @@ const TETROMINO_MAP = {
 	"Z": [Vector2.ZERO, Vector2.RIGHT, Vector2.UP, Vector2(-1, -1)],
 	"S": [Vector2.ZERO, Vector2.LEFT, Vector2.UP, Vector2(1, -1)],
 	"U" : [Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(1, -1), ],
+	"LongT": [Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, -2), Vector2(-1, -2), Vector2(1, -2), ],
+	"dot": [Vector2(0, 0), ],
 	"I6": [Vector2(0, 1), Vector2(0, -1), Vector2(0, 0), Vector2(0, -2), Vector2(0, -3), Vector2(0, 2), ],
 	"O3x3": [Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), ],
+	"cross": [Vector2(0, 0), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), ],
 	"E" : [Vector2(0, 0), Vector2(-2, 0), Vector2(2, 0), Vector2(-2, -1), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(2, -1), ],
 	"Y": [Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0), Vector2(-1, -1), Vector2(1, 0), Vector2(1, -1), ],
 	"O4x4": [Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), Vector2(-1, -2), Vector2(0, -2), Vector2(1, -2), Vector2(2, -2), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), ], 
 	"X": [Vector2(-1, 1), Vector2(0, 0), Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), ],
 	"RING" : [Vector2(-1, -1), Vector2(-1, 0), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), ],
 	"I2x8": [Vector2(0, 1), Vector2(0, -1), Vector2(0, 0), Vector2(0, -2), Vector2(0, -3), Vector2(0, 2), Vector2(0, -4), Vector2(0, 3), Vector2(1, -4), Vector2(1, -3), Vector2(1, -2), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(1, 3), ],
+	"MissingI":[Vector2(-1, -2), Vector2(-1, -1), Vector2(-1, 0), Vector2(-1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(1, -2), Vector2(-2, 1), Vector2(-2, 0), Vector2(-2, -1), Vector2(-2, -2), Vector2(2, -2), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), Vector2(3, -2), Vector2(3, -1), Vector2(3, 0), Vector2(3, 1), Vector2(-3, -2), Vector2(-3, -1), Vector2(-3, 0), Vector2(-3, 1), ],
+	"RING2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-2, 2), Vector2(-1, 2), Vector2(0, 2), Vector2(1, 2), Vector2(2, 2), Vector2(2, 1), Vector2(2, 0), Vector2(2, -1), Vector2(2, -2), Vector2(1, -2), Vector2(0, -2), Vector2(-1, -2), Vector2(-3, -3), Vector2(-3, -2), Vector2(-3, -1), Vector2(-3, 0), Vector2(-3, 1), Vector2(-3, 2), Vector2(-3, 3), Vector2(-2, 3), Vector2(-1, 3), Vector2(0, 3), Vector2(1, 3), Vector2(2, 3), Vector2(3, 3), Vector2(3, 2), Vector2(3, 1), Vector2(3, 0), Vector2(3, -1), Vector2(3, -2), Vector2(3, -3), Vector2(2, -3), Vector2(1, -3), Vector2(0, -3), Vector2(-1, -3), Vector2(-2, -3), ],
 	"U2": [Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(-2, -2), Vector2(2, -2), Vector2(-1, -2), Vector2(-1, -1), Vector2(3, 1), Vector2(3, 0), Vector2(3, -1), Vector2(3, -2), ],
 	"E2" : [Vector2(0, -1), Vector2(0, 0), Vector2(-2, 0), Vector2(-2, -1), Vector2(2, 0), Vector2(2, -1), Vector2(-2, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(2, 1), ],
-	"Y2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-1, -2), Vector2(-1, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(1, 3), Vector2(2, -2), Vector2(2, -1), Vector2(3, -2), Vector2(3, -1), Vector2(-2, -4), Vector2(-2, -3), Vector2(-1, -4), Vector2(-1, -3), Vector2(0, -2), Vector2(0, -1), Vector2(1, -2), Vector2(1, -1), Vector2(2, -4), Vector2(2, -3), Vector2(3, -4), Vector2(3, -3), ],
+	#"Y2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-1, -2), Vector2(-1, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(1, 3), Vector2(2, -2), Vector2(2, -1), Vector2(3, -2), Vector2(3, -1), Vector2(-2, -4), Vector2(-2, -3), Vector2(-1, -4), Vector2(-1, -3), Vector2(0, -2), Vector2(0, -1), Vector2(1, -2), Vector2(1, -1), Vector2(2, -4), Vector2(2, -3), Vector2(3, -4), Vector2(3, -3), ],
+	"I9": [Vector2(0, 0), Vector2(1, 0), Vector2(2, 0), Vector2(4, 0), Vector2(3, 0), Vector2(-1, 0), Vector2(-2, 0), Vector2(-3, 0), Vector2(-4, 0), ],
 	"DoubleBar": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-2, 2), Vector2(2, 0), Vector2(2, -1), Vector2(2, -2), Vector2(2, 1), Vector2(2, 2), ],
-	"X2": [Vector2(0, 0), Vector2(1, 0), Vector2(0, -1), Vector2(1, -1), Vector2(2, -2), Vector2(3, -2), Vector2(3, -3), Vector2(2, -3), Vector2(-1, -3), Vector2(-1, -2), Vector2(-2, -2), Vector2(-2, -3), Vector2(-1, 1), Vector2(-2, 1), Vector2(-2, 2), Vector2(-1, 2), Vector2(2, 1), Vector2(2, 2), Vector2(3, 2), Vector2(3, 1), ],
-	"RING2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-2, 2), Vector2(-1, 2), Vector2(0, 2), Vector2(1, 2), Vector2(2, 2), Vector2(2, 1), Vector2(2, 0), Vector2(2, -1), Vector2(2, -2), Vector2(1, -2), Vector2(0, -2), Vector2(-1, -2), Vector2(-3, -3), Vector2(-3, -2), Vector2(-3, -1), Vector2(-3, 0), Vector2(-3, 1), Vector2(-3, 2), Vector2(-3, 3), Vector2(-2, 3), Vector2(-1, 3), Vector2(0, 3), Vector2(1, 3), Vector2(2, 3), Vector2(3, 3), Vector2(3, 2), Vector2(3, 1), Vector2(3, 0), Vector2(3, -1), Vector2(3, -2), Vector2(3, -3), Vector2(2, -3), Vector2(1, -3), Vector2(0, -3), Vector2(-1, -3), Vector2(-2, -3), ],
+	#"X2": [Vector2(0, 0), Vector2(1, 0), Vector2(0, -1), Vector2(1, -1), Vector2(2, -2), Vector2(3, -2), Vector2(3, -3), Vector2(2, -3), Vector2(-1, -3), Vector2(-1, -2), Vector2(-2, -2), Vector2(-2, -3), Vector2(-1, 1), Vector2(-2, 1), Vector2(-2, 2), Vector2(-1, 2), Vector2(2, 1), Vector2(2, 2), Vector2(3, 2), Vector2(3, 1), ],
+	
 } 
 
 
 const BUBBLE := preload("res://scenes/game/tetromino/bubble.tscn")
 
 var _current_rotation: int = 0
+
+var has_power_up := false
 
 func _ready() -> void:
 	
@@ -80,12 +87,14 @@ func try_move(vec: Vector2) -> bool:
 	if is_position_blocked(vec):
 		return false
 	position += vec * PIXELS_PER_UNIT
+	_try_pick_up_power()
 	return true
 	
 
 func slam_time(vec: Vector2, force: bool = false) -> void:
 	while !is_position_blocked(vec) && not force:
 		position += vec * PIXELS_PER_UNIT
+		_try_pick_up_power()
 		break
 	
 
@@ -102,7 +111,7 @@ func process_rotate(degrees: int) -> bool:
 	for bubble in get_bubbles():
 		bubble.position = bubble_positions_after_rotate[i] * PIXELS_PER_UNIT
 		i += 1
-		
+	_try_pick_up_power()
 	return true
 	
 
@@ -134,7 +143,7 @@ func wall_kick() -> bool:
 			var double_kick = first_kick + second_kick
 			if double_kick != Vector2.ZERO && try_move(double_kick):
 				return true
-	
+	_try_pick_up_power()
 	return false
 	
 	
@@ -160,7 +169,24 @@ func is_position_blocked(pos: Vector2) -> bool:
 		if play_area.is_position_blocked(pos_b):
 			return true
 	return false
+	
+func _try_pick_up_power() -> void:
+	if has_power_up:
+		return
+	for bubble_position in _get_bubble_positions():
+		var pos_c = ((position / PIXELS_PER_UNIT) + bubble_position)#/ PIXELS_PER_UNIT
+		var powerup = play_area.get_position_powerup(pos_c)
+		if powerup != null:
+			has_power_up = true
+			apply_powerup(powerup)
+			return
 
+func apply_powerup(powerup: PowerUp) -> void:
+	powerup.position = Vector2.ZERO
+	for bubble in get_bubbles():
+		var powerup_clone = powerup.duplicate()
+		bubble.receive_powerup(powerup_clone)
+	powerup.queue_free()
 
 func _get_bubble_positions() -> Array[Vector2]:
 	var positions: Array[Vector2] = []

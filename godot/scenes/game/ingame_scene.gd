@@ -1,9 +1,12 @@
 extends Node2D
 
+
 @onready var fade_overlay = %FadeOverlay
 @onready var pause_overlay = %PauseOverlay
 
 func _ready() -> void:
+	preload("res://music/projectzodiac-smoothintro.mp3")
+	preload("res://music/projectzodiac-smoothmainloop.mp3")
 	%IntroMusic.play()
 	%IntroMusic.connect("finished", _on_intro_finished)
 	fade_overlay.visible = true
