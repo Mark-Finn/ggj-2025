@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 
 func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 	# Adds up the base amount of the bubbles popped
+	%ScoreAnimations.play("score_flash")
 	var cleared_score = 0
 	print(bubbles.size())
 	for bubble in bubbles:

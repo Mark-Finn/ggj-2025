@@ -12,7 +12,11 @@ func _ready() -> void:
 		SaveGame.load_game(get_tree())
 	
 	pause_overlay.game_exited.connect(_save_game)
-
+	
+	%BackgroundAnimations.play("game_start")
+	%BackgroundAnimations.queue("background_idle")
+	
+	
 func _input(event) -> void:
 	if event.is_action_pressed("pause") and not pause_overlay.visible:
 		get_viewport().set_input_as_handled()
@@ -25,3 +29,7 @@ func _save_game() -> void:
 
 func _on_intro_finished():
 	%LoopMusic.play()
+
+
+func _on_play_area_popped_bubbles() -> void:
+	pass # Replace with function body.

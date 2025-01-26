@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dv2y18ye8j7o0"]
+[gd_scene load_steps=16 format=3 uid="uid://dv2y18ye8j7o0"]
 
 [ext_resource type="Script" path="res://scenes/ui/mainmenu/main_menu_scene.gd" id="1_1foie"]
 [ext_resource type="PackedScene" uid="uid://cik30de5gaaah" path="res://scenes/game/ingame_scene.tscn" id="2_nl5i6"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cyru18k5byy8p" path="res://music/ProjectZodiac-menumusic.wav" id="6_pma5s"]
 [ext_resource type="Texture2D" uid="uid://dem0jrd0a747g" path="res://visualassets/Slortiz_streetartstyle2.png" id="6_qps5d"]
 [ext_resource type="PackedScene" uid="uid://1c257f21k3oc" path="res://scenes/game/tetromino/bubble.tscn" id="7_g0lrd"]
+[ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="10_eh7la"]
 
 [sub_resource type="Theme" id="Theme_0w7ns"]
 default_font = ExtResource("5_lsnja")
@@ -115,6 +116,7 @@ autoplay = true
 bus = &"Music"
 
 [node name="Bubbles" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Bubble" parent="Bubbles" instance=ExtResource("7_g0lrd")]
 modulate = Color(0.821991, 0.816483, 0.593899, 1)
@@ -199,3 +201,9 @@ scale = Vector2(0.5593, 0.557072)
 modulate = Color(0.903642, 0.764307, 0.787197, 1)
 position = Vector2(309, 208)
 scale = Vector2(0.4393, 0.441159)
+
+[node name="TetrisBackgroundGrayscale" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(289, 162.5)
+scale = Vector2(0.1888, 0.239583)
+texture = ExtResource("10_eh7la")

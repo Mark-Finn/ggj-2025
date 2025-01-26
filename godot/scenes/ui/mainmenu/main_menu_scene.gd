@@ -29,6 +29,10 @@ func _ready() -> void:
 		continue_button.grab_focus()
 	else:
 		new_game_button.grab_focus()
+	
+	for bubble in %Bubbles.get_children():
+		if bubble is Bubble:
+			bubble.animation_idle()
 
 func _on_settings_button_pressed() -> void:
 	new_game = false
