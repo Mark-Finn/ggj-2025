@@ -235,4 +235,5 @@ speed_scale = 4.0
 [node name="PopSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamPlaylist_nbc5r")
+volume_db = -3.925
 bus = &"Sound"
