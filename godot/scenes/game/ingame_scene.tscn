@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=23 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="Script" path="res://scenes/game/ingame_scene.gd" id="1_s0oxc"]
 [ext_resource type="PackedScene" uid="uid://it8krv030uwn" path="res://scenes/game/playarea/play_area.tscn" id="4_6x0xm"]
@@ -6,34 +6,197 @@
 [ext_resource type="AudioStream" uid="uid://dakxtc7ahssr" path="res://music/ProjectZodiac-mainloop.wav" id="5_3afph"]
 [ext_resource type="AudioStream" uid="uid://blqt0qw1uhrrw" path="res://music/ProjectZodiac-loopintro.wav" id="5_eqvtv"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="5_kwkh4"]
-[ext_resource type="AudioStream" uid="uid://c3ya1wk0fagd5" path="res://soundeffects/bubblepop_1.wav" id="7_3ti81"]
-[ext_resource type="AudioStream" uid="uid://ouyj63abl7nv" path="res://soundeffects/bubblepop_2.wav" id="8_hqdh5"]
-[ext_resource type="AudioStream" uid="uid://buxxu0ydmadq4" path="res://soundeffects/bubblepop_3.wav" id="9_kuqnv"]
-[ext_resource type="AudioStream" uid="uid://1eavofef2o3t" path="res://soundeffects/bubblepop_4.wav" id="10_k3p1g"]
-[ext_resource type="AudioStream" uid="uid://dn8qdyfolm02p" path="res://soundeffects/bubblepop_5.wav" id="11_0ihtw"]
-[ext_resource type="AudioStream" uid="uid://b00shkl8lx466" path="res://soundeffects/bubblepop_6.wav" id="12_o66o3"]
-[ext_resource type="AudioStream" uid="uid://royr2isrbhjs" path="res://soundeffects/bubblepop_7.wav" id="13_71ku8"]
-[ext_resource type="AudioStream" uid="uid://b1ya2jhov0bhm" path="res://soundeffects/bubblepop_8.wav" id="14_qu3nv"]
+[ext_resource type="FontFile" uid="uid://csjn7ryho7u8v" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="9_5kygf"]
+[ext_resource type="PackedScene" uid="uid://1c257f21k3oc" path="res://scenes/game/tetromino/bubble.tscn" id="10_ab13b"]
 [ext_resource type="Script" path="res://scenes/game/score.gd" id="15_wud1j"]
 [ext_resource type="Script" path="res://scenes/game/hud.gd" id="16_vr01u"]
-[ext_resource type="FontFile" uid="uid://d3gm5h1sk3aow" path="res://fonts/tetris.ttf" id="17_y720u"]
+[ext_resource type="Texture2D" path="res://visualassets/Tetris Background grayscale.png" id="18_o52xn"]
 
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_fbvm3"]
-shuffle = true
-loop = false
-fade_time = 0.05
-stream_count = 8
-stream_0 = ExtResource("7_3ti81")
-stream_1 = ExtResource("8_hqdh5")
-stream_2 = ExtResource("9_kuqnv")
-stream_3 = ExtResource("10_k3p1g")
-stream_4 = ExtResource("11_0ihtw")
-stream_5 = ExtResource("12_o66o3")
-stream_6 = ExtResource("13_71ku8")
-stream_7 = ExtResource("14_qu3nv")
+[sub_resource type="Animation" id="Animation_86aho"]
+resource_name = "float_animation"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a18ko"]
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Bubble:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4.10208, 2.44141), Vector2(4.152, 2.471), Vector2(4.10208, 2.44141)]
+}
+
+[sub_resource type="Animation" id="Animation_sgx3t"]
+resource_name = "float_bubble"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Bubble:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4.10208, 2.44141), Vector2(4.152, 2.471), Vector2(4.10208, 2.44141)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ugcak"]
+_data = {
+"RESET": SubResource("Animation_a18ko"),
+"float_animation": SubResource("Animation_86aho"),
+"float_bubble": SubResource("Animation_sgx3t")
+}
 
 [sub_resource type="Theme" id="Theme_vvnv4"]
-default_font = ExtResource("17_y720u")
+default_font = ExtResource("9_5kygf")
+
+[sub_resource type="Animation" id="Animation_eps2t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.748302, 0.850512, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.288518, 0.288518, 0.288518, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gspw8"]
+resource_name = "background_idle"
+length = 20.0
+loop_mode = 1
+step = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1.15514e-06, 0.507043, 0.614121, 1), Color(0.286016, 0.379101, 1, 1), Color(0.676758, 0.00330042, 0.956334, 1), Color(0.788073, 0.000296293, 0.739309, 1), Color(0.870416, 0, 0.404711, 1), Color(0.784683, 0.304151, 0.0505023, 1), Color(0.548268, 0.418935, 9.62615e-08, 1), Color(0.453561, 0.522096, 5.77569e-07, 1), Color(5.05373e-07, 0.541398, 0.344586, 1), Color(0.473976, 0.473976, 0.473976, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7m3f3"]
+resource_name = "game_pause"
+step = 2.0
+
+[sub_resource type="Animation" id="Animation_egk88"]
+resource_name = "game_start"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 0.31864),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_75fpl"]
+resource_name = "score_flash"
+length = 2.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.25, 0.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1, 1, 1, 1), Color(0.552956, 0.552956, 0.552956, 1), Color(0.400698, 0.400698, 0.400698, 1), Color(0.223103, 0.223103, 0.223103, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_833s5"]
+_data = {
+"RESET": SubResource("Animation_eps2t"),
+"background_idle": SubResource("Animation_gspw8"),
+"game_pause": SubResource("Animation_7m3f3"),
+"game_start": SubResource("Animation_egk88"),
+"score_flash": SubResource("Animation_75fpl")
+}
 
 [node name="IngameScene" type="Node2D"]
 script = ExtResource("1_s0oxc")
@@ -65,28 +228,56 @@ unique_name_in_owner = true
 stream = ExtResource("5_3afph")
 bus = &"Music"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamPlaylist_fbvm3")
-bus = &"Sound"
-
 [node name="Score" type="Node2D" parent="."]
 script = ExtResource("15_wud1j")
 
 [node name="HUD" type="Node2D" parent="Score"]
 script = ExtResource("16_vr01u")
 
-[node name="Label" type="RichTextLabel" parent="Score/HUD"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Score/HUD"]
+libraries = {
+"": SubResource("AnimationLibrary_ugcak")
+}
+
+[node name="Label" type="Label" parent="Score/HUD/AnimationPlayer"]
 top_level = true
 offset_left = 473.0
 offset_top = 32.0
 offset_right = 561.0
 offset_bottom = 70.0
 theme = SubResource("Theme_vvnv4")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1
-theme_override_fonts/normal_font = ExtResource("17_y720u")
-bbcode_enabled = true
-fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Bubble" parent="Score/HUD" instance=ExtResource("10_ab13b")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(512, 54)
+scale = Vector2(4.10208, 2.44141)
+
+[node name="ScoreAnimations" type="AnimationPlayer" parent="Score"]
+unique_name_in_owner = true
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_833s5")
+}
+
+[node name="TetrisBackgroundGrayscale" type="Sprite2D" parent="."]
+modulate = Color(0, 0.748302, 0.850512, 1)
+self_modulate = Color(0.288518, 0.288518, 0.288518, 1)
+show_behind_parent = true
+position = Vector2(288.5, 162.5)
+scale = Vector2(0.18592, 0.227083)
+texture = ExtResource("18_o52xn")
+
+[node name="BackgroundAnimations" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_833s5")
+}
 
 [connection signal="PoppedBubbles" from="PlayArea" to="Score" method="_on_play_area_popped_bubbles"]
