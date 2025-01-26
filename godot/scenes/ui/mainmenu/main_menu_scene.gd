@@ -16,7 +16,6 @@ func _ready() -> void:
 	overlay.visible = true
 	new_game_button.disabled = game_scene == null
 	settings_button.disabled = settings_scene == null
-	continue_button.visible = SaveGame.has_save() and SaveGame.ENABLED
 	
 	# connect signals
 	new_game_button.pressed.connect(_on_play_button_pressed)
@@ -52,6 +51,4 @@ func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
 func _on_fade_overlay_on_complete_fade_out() -> void:
-	if new_game and SaveGame.has_save():
-		SaveGame.delete_save()
 	get_tree().change_scene_to_packed(next_scene)

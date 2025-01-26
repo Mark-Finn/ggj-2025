@@ -16,14 +16,14 @@ const NUM_ROWS = 24
 # Global Variables
 var bubble_grid: Dictionary = {}
 var spawn_pos: Vector2i
-var total_score = 0
-var index = -1
-var tetronimo_max = 6
+var tetronimo_max = 7
 
 
 
 func is_position_blocked(pos: Vector2) -> bool:
 	var pos_i = _to_vector2i(pos)
+	if 0 <= pos.x && pos.x < %Grid.width && pos.y >= %Grid.height:
+		return false
 	return !bubble_grid.has(pos_i.y) \
 		|| !bubble_grid[pos_i.y].has(pos_i.x) \
 		|| bubble_grid[pos_i.y][pos_i.x] != null
@@ -39,7 +39,7 @@ func _ready() -> void:
 		for col in %Grid.width:
 			bubble_grid[row][col] = null
 			
-	spawn_pos = Vector2i(int(%Grid.width / 2), %Grid.height - 5) # todo fix
+	spawn_pos = Vector2i(int(%Grid.width / 2), %Grid.height - 1)
 			
 	_spawn_tetromino()
 	
@@ -47,30 +47,54 @@ func _ready() -> void:
 func _spawn_tetromino() -> void:
 	var tetromino = TETROMINO.instantiate()
 	tetromino.position = spawn_pos * PIXELS_TO_UNITS
-	var tetromino_selected = int(randf_range(0,tetronimo_max+1))
+	var tetromino_selected = int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size() - 1)))
 	tetromino.letter = Tetromino.TETROMINO_MAP.keys()[tetromino_selected] #picks random letter from tetromino maps
-	if tetronimo_max < Tetromino.TETROMINO_MAP.size():
-		tetronimo_max += .25
+	tetronimo_max += 1.0 / 4.0
 	tetromino.Placed.connect(_on_placed)
 	add_child(tetromino)
 	
 	
 func _on_placed(bubbles: Array[Bubble], tetromino_position: Vector2) -> void:
-	var num_bubbles = 0
 	var changed_rows: Dictionary = {}
+	var game_over := false
 	for bubble in bubbles:
-		num_bubbles += 1
 		bubble.position += tetromino_position
-		add_child(bubble)
 		var row := int(bubble.position.y / PIXELS_TO_UNITS)
 		var col := int(bubble.position.x / PIXELS_TO_UNITS)
 		bubble.row = row
 		bubble.column = col
-		assert(bubble_grid[row][col] == null)
+		
+		if not bubble_grid.has(row) || not bubble_grid[row].has(col) || bubble_grid[row][col] != null:
+			game_over = true
+			continue
+			
+		add_child(bubble)
+		
 		bubble_grid[row][col] = bubble
 		changed_rows[row] = true
+		
+	if game_over:
+		_handle_game_over()
+		return
+		
 	await _handle_placed_bubbles(changed_rows.keys())
 	_spawn_tetromino()
+	
+	
+func _handle_game_over(): 
+	var gg = _GAME_OVER
+	gg.shuffle()
+	const offset := Vector2(3, 2)
+	var i := 0
+	for bubble_rows in bubble_grid.values():
+		for bubble in bubble_rows.values():
+			if bubble == null:
+				continue
+			var grid_pos = gg[i] if i < gg.size() else gg.pick_random()
+			grid_pos += offset
+			i += 1
+			bubble.change_position_after_pop(grid_pos * PIXELS_TO_UNITS)
+		
 	
 
 func _handle_placed_bubbles(changed_rows: Array) -> void:
@@ -125,13 +149,14 @@ func _handle_popped_bubbles(bubbles_positions: Array[Vector2i]) -> void:
 			bubble_shifts[below_position] += 1
 			
 	var ordinal: int = 0
-	for bubble in bubbles:
-		bubble.pop(ordinal)
-		ordinal += 1
 	
 	PoppedBubbles.emit(bubbles)
 	
-	await get_tree().create_timer(ordinal * .03).timeout #fix
+	for bubble in bubbles:
+		bubble.pop(ordinal)
+		ordinal += 1
+		
+	await bubbles.back().BubblePopped
 	
 	var finished_falling = false
 	for row in range(0,  %Grid.height):
@@ -149,3 +174,32 @@ func _handle_popped_bubbles(bubbles_positions: Array[Vector2i]) -> void:
 			
 	if finished_falling:
 		await finished_falling
+		
+		
+		
+var _GAME_OVER: Array[Vector2] = [
+	Vector2(0, 1), Vector2(1, 0), Vector2(2, 0), Vector2(3, 0), Vector2(4, 1), Vector2(0, 2), 
+	Vector2(0, 3), Vector2(0, 4), Vector2(0, 5), Vector2(1, 6), Vector2(2, 6), Vector2(3, 6), 
+	Vector2(4, 5), Vector2(4, 4), Vector2(3, 4), Vector2(6, 6), Vector2(6, 5), Vector2(6, 4), 
+	Vector2(6, 3), Vector2(6, 2), Vector2(6, 1), Vector2(7, 0), Vector2(8, 0), Vector2(9, 0), 
+	Vector2(7, 3), Vector2(8, 3), Vector2(9, 3), Vector2(10, 1), Vector2(10, 2), Vector2(10, 3), 
+	Vector2(10, 4), Vector2(10, 5), Vector2(10, 6), Vector2(12, 6), Vector2(12, 5), Vector2(12, 4),
+	Vector2(12, 3), Vector2(12, 2), Vector2(12, 1), Vector2(12, 0), Vector2(13, 1), Vector2(14, 2),
+	Vector2(14, 3), Vector2(15, 1), Vector2(16, 0), Vector2(16, 1), Vector2(16, 2), Vector2(16, 3), 
+	Vector2(16, 4), Vector2(16, 5), Vector2(16, 6), Vector2(18, 0), Vector2(18, 1), Vector2(18, 2), 
+	Vector2(18, 3), Vector2(18, 4), Vector2(18, 5), Vector2(18, 6), Vector2(19, 6), Vector2(20, 6), 
+	Vector2(21, 6), Vector2(19, 3), Vector2(19, 0), Vector2(20, 0), Vector2(21, 0), Vector2(20, 3), 
+	Vector2(22, 6), Vector2(22, 0), Vector2(21, 3), Vector2(0, 10), Vector2(0, 11), Vector2(0, 12), 
+	Vector2(0, 13), Vector2(4, 10), Vector2(4, 11), Vector2(4, 12), Vector2(4, 13), Vector2(6, 9), 
+	Vector2(6, 10), Vector2(6, 11), Vector2(7, 13), Vector2(9, 13), Vector2(10, 9), Vector2(10, 10), 
+	Vector2(10, 11), Vector2(12, 9), Vector2(12, 10), Vector2(12, 11), Vector2(12, 12), 
+	Vector2(12, 13), Vector2(12, 14), Vector2(18, 9), Vector2(18, 10), Vector2(18, 11), 
+	Vector2(18, 12), Vector2(18, 13), Vector2(18, 14), Vector2(20, 12), Vector2(22, 10), 
+	Vector2(0, 14), Vector2(1, 9), Vector2(1, 15), Vector2(2, 9), Vector2(2, 15), Vector2(3, 9), 
+	Vector2(3, 15), Vector2(4, 14), Vector2(6, 12), Vector2(7, 14), Vector2(8, 15), Vector2(9, 14), 
+	Vector2(10, 12), Vector2(12, 15), Vector2(13, 9), Vector2(13, 12), Vector2(13, 15), 
+	Vector2(14, 9), Vector2(14, 12), Vector2(14, 15), Vector2(15, 9), Vector2(15, 12), 
+	Vector2(15, 15), Vector2(16, 9), Vector2(16, 15), Vector2(18, 15), Vector2(19, 9), 
+	Vector2(19, 12), Vector2(20, 9), Vector2(20, 13), Vector2(21, 9), Vector2(21, 12), 
+	Vector2(21, 14), Vector2(22, 11), Vector2(22, 15),
+]

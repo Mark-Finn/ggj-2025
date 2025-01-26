@@ -2,6 +2,9 @@ extends Node2D
 class_name Bubble
 
 
+signal BubblePopped
+
+
 const DEFAULT_TICK = .5
 const BUBBLE_POP_DURATION = 0.5
 const NEXT_BUBBLE_WAIT = 0.05
@@ -17,6 +20,7 @@ func pop(ordinal: int) -> void:
 	await get_tree().create_timer(ordinal * NEXT_BUBBLE_WAIT).timeout 
 	animation_pop()
 	await %BubbleAnimationPlayer.animation_finished
+	BubblePopped.emit()
 	queue_free()
 	
 func change_position_after_pop(pos: Vector2) -> Signal:
