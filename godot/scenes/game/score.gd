@@ -47,7 +47,6 @@ func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 # Updates the HUD label with the new total score
 func update_score_label(score: int, additive: float, multiplicative: float):
 	var score_string = str(score)
-	score *= 99_999_99
 	if score > 99_999_99:
 		score_string = to_scientific_notation(score)
 	var score_label =  $HUD/Label
