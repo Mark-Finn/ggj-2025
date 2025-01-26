@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://1c257f21k3oc"]
+[gd_scene load_steps=10 format=3 uid="uid://1c257f21k3oc"]
 
 [ext_resource type="Script" path="res://scenes/game/tetromino/bubble.gd" id="1_bpdb4"]
 [ext_resource type="Texture2D" uid="uid://c82x21cbe6d58" path="res://scenes/game/tetromino/BubbleSpriteSheet.png" id="2_o40ts"]
+[ext_resource type="Script" path="res://scenes/game/tetromino/audio_stream_player_2d.gd" id="3_5pskq"]
 
 [sub_resource type="Animation" id="Animation_ombim"]
 resource_name = "Place"
@@ -212,3 +213,6 @@ libraries = {
 "": SubResource("AnimationLibrary_xjgxk")
 }
 speed_scale = 4.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+script = ExtResource("3_5pskq")

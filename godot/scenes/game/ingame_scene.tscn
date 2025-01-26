@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=18 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="Script" path="res://scenes/game/ingame_scene.gd" id="1_s0oxc"]
 [ext_resource type="PackedScene" uid="uid://it8krv030uwn" path="res://scenes/game/playarea/play_area.tscn" id="4_6x0xm"]
@@ -6,32 +6,10 @@
 [ext_resource type="AudioStream" uid="uid://dakxtc7ahssr" path="res://music/ProjectZodiac-mainloop.wav" id="5_3afph"]
 [ext_resource type="AudioStream" uid="uid://blqt0qw1uhrrw" path="res://music/ProjectZodiac-loopintro.wav" id="5_eqvtv"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="5_kwkh4"]
-[ext_resource type="AudioStream" uid="uid://c3ya1wk0fagd5" path="res://soundeffects/bubblepop_1.wav" id="7_3ti81"]
-[ext_resource type="AudioStream" uid="uid://ouyj63abl7nv" path="res://soundeffects/bubblepop_2.wav" id="8_hqdh5"]
-[ext_resource type="AudioStream" uid="uid://buxxu0ydmadq4" path="res://soundeffects/bubblepop_3.wav" id="9_kuqnv"]
-[ext_resource type="AudioStream" uid="uid://1eavofef2o3t" path="res://soundeffects/bubblepop_4.wav" id="10_k3p1g"]
-[ext_resource type="AudioStream" uid="uid://dn8qdyfolm02p" path="res://soundeffects/bubblepop_5.wav" id="11_0ihtw"]
-[ext_resource type="AudioStream" uid="uid://b00shkl8lx466" path="res://soundeffects/bubblepop_6.wav" id="12_o66o3"]
-[ext_resource type="AudioStream" uid="uid://royr2isrbhjs" path="res://soundeffects/bubblepop_7.wav" id="13_71ku8"]
-[ext_resource type="AudioStream" uid="uid://b1ya2jhov0bhm" path="res://soundeffects/bubblepop_8.wav" id="14_qu3nv"]
 [ext_resource type="Script" path="res://scenes/game/score.gd" id="15_wud1j"]
 [ext_resource type="Script" path="res://scenes/game/hud.gd" id="16_vr01u"]
 [ext_resource type="FontFile" uid="uid://d3gm5h1sk3aow" path="res://fonts/tetris.ttf" id="17_y720u"]
 [ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="18_o52xn"]
-
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_fbvm3"]
-shuffle = true
-loop = false
-fade_time = 0.05
-stream_count = 8
-stream_0 = ExtResource("7_3ti81")
-stream_1 = ExtResource("8_hqdh5")
-stream_2 = ExtResource("9_kuqnv")
-stream_3 = ExtResource("10_k3p1g")
-stream_4 = ExtResource("11_0ihtw")
-stream_5 = ExtResource("12_o66o3")
-stream_6 = ExtResource("13_71ku8")
-stream_7 = ExtResource("14_qu3nv")
 
 [sub_resource type="Theme" id="Theme_vvnv4"]
 default_font = ExtResource("17_y720u")
@@ -85,7 +63,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_75fpl"]
 resource_name = "score_flash"
 length = 2.0
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -93,7 +71,7 @@ tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.7, 1.3, 2),
+"times": PackedFloat32Array(0, 0.05, 0.25, 0.5, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1, 1, 1, 1), Color(0.552956, 0.552956, 0.552956, 1), Color(0.400698, 0.400698, 0.400698, 1), Color(0.223103, 0.223103, 0.223103, 1)]
@@ -169,10 +147,6 @@ unique_name_in_owner = true
 stream = ExtResource("5_3afph")
 bus = &"Music"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamPlaylist_fbvm3")
-bus = &"Sound"
-
 [node name="Score" type="Node2D" parent="."]
 script = ExtResource("15_wud1j")
 
@@ -193,6 +167,13 @@ bbcode_enabled = true
 fit_content = true
 autowrap_mode = 2
 
+[node name="ScoreAnimations" type="AnimationPlayer" parent="Score"]
+unique_name_in_owner = true
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_833s5")
+}
+
 [node name="TetrisBackgroundGrayscale" type="Sprite2D" parent="."]
 modulate = Color(0, 0.748302, 0.850512, 1)
 self_modulate = Color(0.288518, 0.288518, 0.288518, 1)
@@ -201,7 +182,7 @@ position = Vector2(288.5, 162.5)
 scale = Vector2(0.18592, 0.227083)
 texture = ExtResource("18_o52xn")
 
-[node name="backgroundanimations" type="AnimationPlayer" parent="."]
+[node name="BackgroundAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_833s5")
