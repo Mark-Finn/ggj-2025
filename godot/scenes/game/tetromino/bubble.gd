@@ -30,6 +30,13 @@ func change_position_after_pop(pos: Vector2) -> Signal:
 	animation_place(0.5) # todo fix
 	return tween.finished
 
+func receive_powerup(powerup: PowerUp) -> void:
+	add_child(powerup)
+	%Bubble.visible = false
+	if powerup.type == "mult":
+		%Mult2.visible = true
+	else:
+		%Flat10.visible = true
 	
 func animation_place(game_tick_length:float) -> void:
 	%BubbleAnimationPlayer.speed_scale = 2 * (DEFAULT_TICK/game_tick_length)
@@ -50,14 +57,3 @@ func animation_coyote_input(game_tick_length:float) -> void:
 	if $BubbleAnimationPlayer.current_animation != "coyote": 
 		%BubbleAnimationPlayer.speed_scale = 4 * (DEFAULT_TICK/game_tick_length)
 		%BubbleAnimationPlayer.play("coyote")
-
-
-func _on_power_up_tree_entered() -> void:
-	%Bubble.visible = false
-	if $PowerUp.type == "mult":
-		%Mult2.visible = true
-		#%Mult2.position = %Bubble.position
-	else:
-		%Flat10.visible = true
-		#%Mult2.position = %Bubble.position
-	pass # Replace with function body.

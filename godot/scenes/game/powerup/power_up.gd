@@ -7,14 +7,20 @@ var row
 var column
 
 func _ready() -> void:
-	if type == "mult":
+	var parent_is_bubble: bool = get_parent() is Bubble
+	
+	if parent_is_bubble: 
 		%FlatSprite.visible = false
-		%MultSprite.visible = true
-		value = 2
-	else:
-		%FlatSprite.visible = true
 		%MultSprite.visible = false
-		value = 10
+	else:
+		if type == "mult":
+			%FlatSprite.visible = false
+			%MultSprite.visible = true
+			value = 2
+		else:
+			%FlatSprite.visible = true
+			%MultSprite.visible = false
+			value = 10
 
 func handle_picked_up():
 	pass

@@ -79,14 +79,14 @@ func try_move(vec: Vector2) -> bool:
 	if is_position_blocked(vec):
 		return false
 	position += vec * PIXELS_PER_UNIT
-	is_position_powerup(position)
+	is_position_powerup()
 	return true
 	
 
 func slam_time(vec: Vector2, force: bool = false) -> void:
 	while !is_position_blocked(vec) && not force:
 		position += vec * PIXELS_PER_UNIT
-		is_position_powerup(position)
+		is_position_powerup()
 		break
 	
 
@@ -103,7 +103,7 @@ func process_rotate(degrees: int) -> bool:
 	for bubble in get_bubbles():
 		bubble.position = bubble_positions_after_rotate[i] * PIXELS_PER_UNIT
 		i += 1
-	is_position_powerup(position)
+	is_position_powerup()
 	return true
 	
 
@@ -135,7 +135,7 @@ func wall_kick() -> bool:
 			var double_kick = first_kick + second_kick
 			if double_kick != Vector2.ZERO && try_move(double_kick):
 				return true
-	is_position_powerup(position)
+	is_position_powerup()
 	return false
 	
 	
@@ -162,19 +162,20 @@ func is_position_blocked(pos: Vector2) -> bool:
 			return true
 	return false
 	
-func is_position_powerup(pos: Vector2) -> void:
+func is_position_powerup() -> void:
 	for bubble_position in _get_bubble_positions():
-		var pos_c = ((position / PIXELS_PER_UNIT) + bubble_position + pos)/ PIXELS_PER_UNIT
+		var pos_c = ((position / PIXELS_PER_UNIT) + bubble_position)#/ PIXELS_PER_UNIT
 		var powerup = play_area.get_position_powerup(pos_c)
 		if powerup != null:
-			apply_powerup(powerup, pos_c)
+			apply_powerup(powerup)
 	return 
 
-func apply_powerup(powerup, pos_c: Vector2) -> void:
+func apply_powerup(powerup: PowerUp) -> void:
+	powerup.position = Vector2.ZERO
 	for bubble in get_bubbles():
-			bubble.add_child(powerup)
-			powerup.position = Vector2(0,0)
-	return 
+		var powerup_clone = powerup.duplicate()
+		bubble.receive_powerup(powerup_clone)
+	powerup.queue_free()
 
 func _get_bubble_positions() -> Array[Vector2]:
 	var positions: Array[Vector2] = []

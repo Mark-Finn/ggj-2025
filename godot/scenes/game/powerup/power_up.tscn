@@ -10,8 +10,10 @@ type = 0
 
 [node name="FlatSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 texture = ExtResource("2_8drlx")
 
 [node name="MultSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 texture = ExtResource("3_io2ps")
