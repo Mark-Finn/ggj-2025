@@ -17,3 +17,4 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 texture = ExtResource("1_xjvvc")
 expand_mode = 5
+stretch_mode = 1
