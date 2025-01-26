@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxu8ffrvxxkg8"
-path="res://.godot/imported/Transparentstreetstyle_SLORTIZ.png-dbe46afd373d88b79f60e41bf391dae7.ctex"
+uid="uid://dem0jrd0a747g"
+path="res://.godot/imported/Slortiz_streetartstyle2.png-912f9d06abb4838b4cf68c31e7c37ca4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://visualassets/Transparentstreetstyle_SLORTIZ.png"
-dest_files=["res://.godot/imported/Transparentstreetstyle_SLORTIZ.png-dbe46afd373d88b79f60e41bf391dae7.ctex"]
+source_file="res://visualassets/Slortiz_streetartstyle2.png"
+dest_files=["res://.godot/imported/Slortiz_streetartstyle2.png-912f9d06abb4838b4cf68c31e7c37ca4.ctex"]
 
 [params]
 
