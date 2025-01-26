@@ -14,6 +14,55 @@
 [sub_resource type="Theme" id="Theme_vvnv4"]
 default_font = ExtResource("17_y720u")
 
+[sub_resource type="Animation" id="Animation_eps2t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.288518, 0.288518, 0.288518, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0.748302, 0.850512, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gspw8"]
+resource_name = "background_idle"
+length = 20.0
+loop_mode = 1
+step = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1.15514e-06, 0.507043, 0.614121, 1), Color(0.286016, 0.379101, 1, 1), Color(0.676758, 0.00330042, 0.956334, 1), Color(0.788073, 0.000296293, 0.739309, 1), Color(0.870416, 0, 0.404711, 1), Color(0.784683, 0.304151, 0.0505023, 1), Color(0.548268, 0.418935, 9.62615e-08, 1), Color(0.453561, 0.522096, 5.77569e-07, 1), Color(5.05373e-07, 0.541398, 0.344586, 1), Color(0.473976, 0.473976, 0.473976, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7m3f3"]
+resource_name = "game_pause"
+step = 2.0
+
 [sub_resource type="Animation" id="Animation_egk88"]
 resource_name = "game_start"
 length = 2.0
@@ -42,24 +91,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_gspw8"]
-resource_name = "background_idle"
-length = 20.0
-loop_mode = 1
-step = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TetrisBackgroundGrayscale:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1.15514e-06, 0.507043, 0.614121, 1), Color(0.286016, 0.379101, 1, 1), Color(0.676758, 0.00330042, 0.956334, 1), Color(0.788073, 0.000296293, 0.739309, 1), Color(0.870416, 0, 0.404711, 1), Color(0.784683, 0.304151, 0.0505023, 1), Color(0.548268, 0.418935, 9.62615e-08, 1), Color(0.453561, 0.522096, 5.77569e-07, 1), Color(5.05373e-07, 0.541398, 0.344586, 1), Color(0.473976, 0.473976, 0.473976, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_75fpl"]
 resource_name = "score_flash"
 length = 2.0
@@ -76,37 +107,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1, 1, 1, 1), Color(0.552956, 0.552956, 0.552956, 1), Color(0.400698, 0.400698, 0.400698, 1), Color(0.223103, 0.223103, 0.223103, 1)]
 }
-
-[sub_resource type="Animation" id="Animation_eps2t"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.288518, 0.288518, 0.288518, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TetrisBackgroundGrayscale:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0.748302, 0.850512, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_7m3f3"]
-resource_name = "game_pause"
-step = 2.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_833s5"]
 _data = {

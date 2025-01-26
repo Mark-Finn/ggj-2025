@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://1c257f21k3oc"]
+[gd_scene load_steps=20 format=3 uid="uid://1c257f21k3oc"]
 
 [ext_resource type="Script" path="res://scenes/game/tetromino/bubble.gd" id="1_bpdb4"]
 [ext_resource type="Texture2D" uid="uid://c82x21cbe6d58" path="res://scenes/game/tetromino/BubbleSpriteSheet.png" id="2_o40ts"]
+[ext_resource type="Texture2D" uid="uid://jxle3qj8bp6g" path="res://scenes/game/powerup/2x bubble.png" id="3_ptarw"]
 [ext_resource type="AudioStream" uid="uid://c3ya1wk0fagd5" path="res://soundeffects/bubblepop_0.wav" id="3_vn22k"]
 [ext_resource type="AudioStream" uid="uid://ouyj63abl7nv" path="res://soundeffects/bubblepop_1.wav" id="3_x47o3"]
+[ext_resource type="Texture2D" uid="uid://bgrj6mysec0jg" path="res://scenes/game/powerup/+10 bubble.png" id="4_8e315"]
 [ext_resource type="AudioStream" uid="uid://buxxu0ydmadq4" path="res://soundeffects/bubblepop_2.wav" id="4_c5gve"]
 [ext_resource type="AudioStream" uid="uid://1eavofef2o3t" path="res://soundeffects/bubblepop_3.wav" id="5_ily7i"]
 [ext_resource type="AudioStream" uid="uid://dn8qdyfolm02p" path="res://soundeffects/bubblepop_4.wav" id="6_4csnp"]
@@ -238,3 +240,13 @@ speed_scale = 4.0
 unique_name_in_owner = true
 stream = SubResource("AudioStreamPlaylist_nbc5r")
 bus = &"Sound"
+
+[node name="Mult2" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("3_ptarw")
+
+[node name="Flat10" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("4_8e315")
