@@ -3,8 +3,6 @@ class_name PowerUp
 
 @export_enum("mult", "flat") var type
 @export var value: float
-var row 
-var column
 
 func _ready() -> void:
 	var parent_is_bubble: bool = get_parent() is Bubble

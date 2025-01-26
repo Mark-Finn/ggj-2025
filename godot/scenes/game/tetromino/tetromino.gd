@@ -59,6 +59,8 @@ const BUBBLE := preload("res://scenes/game/tetromino/bubble.tscn")
 
 var _current_rotation: int = 0
 
+var has_power_up := false
+
 func _ready() -> void:
 	
 	play_area = get_parent()
@@ -79,14 +81,14 @@ func try_move(vec: Vector2) -> bool:
 	if is_position_blocked(vec):
 		return false
 	position += vec * PIXELS_PER_UNIT
-	is_position_powerup()
+	_try_pick_up_power()
 	return true
 	
 
 func slam_time(vec: Vector2, force: bool = false) -> void:
 	while !is_position_blocked(vec) && not force:
 		position += vec * PIXELS_PER_UNIT
-		is_position_powerup()
+		_try_pick_up_power()
 		break
 	
 
@@ -103,7 +105,7 @@ func process_rotate(degrees: int) -> bool:
 	for bubble in get_bubbles():
 		bubble.position = bubble_positions_after_rotate[i] * PIXELS_PER_UNIT
 		i += 1
-	is_position_powerup()
+	_try_pick_up_power()
 	return true
 	
 
@@ -135,7 +137,7 @@ func wall_kick() -> bool:
 			var double_kick = first_kick + second_kick
 			if double_kick != Vector2.ZERO && try_move(double_kick):
 				return true
-	is_position_powerup()
+	_try_pick_up_power()
 	return false
 	
 	
@@ -162,13 +164,16 @@ func is_position_blocked(pos: Vector2) -> bool:
 			return true
 	return false
 	
-func is_position_powerup() -> void:
+func _try_pick_up_power() -> void:
+	if has_power_up:
+		return
 	for bubble_position in _get_bubble_positions():
 		var pos_c = ((position / PIXELS_PER_UNIT) + bubble_position)#/ PIXELS_PER_UNIT
 		var powerup = play_area.get_position_powerup(pos_c)
 		if powerup != null:
+			has_power_up = true
 			apply_powerup(powerup)
-	return 
+			return
 
 func apply_powerup(powerup: PowerUp) -> void:
 	powerup.position = Vector2.ZERO
