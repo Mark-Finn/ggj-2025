@@ -1,7 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://jyv4g54adkmo"]
+[gd_scene load_steps=12 format=3 uid="uid://jyv4g54adkmo"]
 
 [ext_resource type="Script" path="res://ui/overlays/pause_overlay.gd" id="1_q2yda"]
 [ext_resource type="PackedScene" uid="uid://nbaodrlopo7y" path="res://ui/components/game_settings.tscn" id="2_n78uc"]
+[ext_resource type="FontFile" uid="uid://b6tlfmw0glqwj" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="2_ydmb7"]
+
+[sub_resource type="Theme" id="Theme_s3h6o"]
+default_font = ExtResource("2_ydmb7")
+
+[sub_resource type="Theme" id="Theme_qau36"]
+default_font = ExtResource("2_ydmb7")
+
+[sub_resource type="Theme" id="Theme_5c8sq"]
+default_font = ExtResource("2_ydmb7")
+
+[sub_resource type="Theme" id="Theme_43w1m"]
+default_font = ExtResource("2_ydmb7")
+
+[sub_resource type="Theme" id="Theme_h6vo8"]
+default_font = ExtResource("2_ydmb7")
+
+[sub_resource type="Theme" id="Theme_lecps"]
+default_font = ExtResource("2_ydmb7")
+
+[sub_resource type="Theme" id="Theme_1spu2"]
+default_font = ExtResource("2_ydmb7")
+
+[sub_resource type="Theme" id="Theme_8diyp"]
+default_font = ExtResource("2_ydmb7")
 
 [node name="PauseOverlay" type="CenterContainer"]
 anchors_preset = 15
@@ -13,6 +38,7 @@ script = ExtResource("1_q2yda")
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="."]
 layout_mode = 2
+theme = SubResource("Theme_s3h6o")
 
 [node name="Label" type="Label" parent="VBoxContainer3"]
 layout_mode = 2
@@ -24,31 +50,42 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+theme = SubResource("Theme_qau36")
 
 [node name="GameSettings" parent="VBoxContainer3/SettingsContainer" instance=ExtResource("2_n78uc")]
 layout_mode = 2
+theme = SubResource("Theme_5c8sq")
 
 [node name="BackButton" type="Button" parent="VBoxContainer3/SettingsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = SubResource("Theme_43w1m")
+theme_override_fonts/font = ExtResource("2_ydmb7")
 text = "return_to_menu"
 
 [node name="MenuContainer" type="VBoxContainer" parent="VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = SubResource("Theme_h6vo8")
 theme_override_constants/separation = 8
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = SubResource("Theme_lecps")
+theme_override_fonts/font = ExtResource("2_ydmb7")
 text = "resume_game"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = SubResource("Theme_1spu2")
+theme_override_fonts/font = ExtResource("2_ydmb7")
 text = "settings"
 
 [node name="ExitButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = SubResource("Theme_8diyp")
+theme_override_fonts/font = ExtResource("2_ydmb7")
 text = "leave_game"
