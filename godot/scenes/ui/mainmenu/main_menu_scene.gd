@@ -28,25 +28,28 @@ func _ready() -> void:
 	for bubble in %Bubbles.get_children():
 		if bubble is Bubble:
 			bubble.animation_idle()
-	
-	%MenuMusic.play()
+
 
 func _on_settings_button_pressed() -> void:
 	new_game = false
 	next_scene = settings_scene
 	overlay.fade_out()
 	
+
 func _on_play_button_pressed() -> void:
 	next_scene = game_scene
 	overlay.fade_out()
 	
+
 func _on_continue_button_pressed() -> void:
 	new_game = false
 	next_scene = game_scene
 	overlay.fade_out()
+	
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+	
 
 func _on_fade_overlay_on_complete_fade_out() -> void:
 	get_tree().change_scene_to_packed(next_scene)

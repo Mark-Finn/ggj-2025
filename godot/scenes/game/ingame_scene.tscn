@@ -1,10 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=18 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="Script" path="res://scenes/game/ingame_scene.gd" id="1_s0oxc"]
 [ext_resource type="PackedScene" uid="uid://it8krv030uwn" path="res://scenes/game/playarea/play_area.tscn" id="4_6x0xm"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="4_dkp7h"]
-[ext_resource type="AudioStream" uid="uid://fqdoir6qfwav" path="res://music/projectzodiac-smoothmainloop.mp3" id="5_5qqrv"]
-[ext_resource type="AudioStream" uid="uid://cjh78fvm1xn6h" path="res://music/projectzodiac-smoothintro.mp3" id="5_7veen"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="5_kwkh4"]
 [ext_resource type="FontFile" uid="uid://csjn7ryho7u8v" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="10_0clc1"]
 [ext_resource type="PackedScene" uid="uid://qihxk280vj5r" path="res://scenes/FlashingKeys.tscn" id="11_k73yp"]
@@ -73,7 +71,7 @@ resource_name = "game_start"
 length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -81,11 +79,11 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 0.31864),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(0.47451, 0.47451, 0.47451, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("TetrisBackgroundGrayscale:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -93,12 +91,12 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(0.47451, 0.47451, 0.47451, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_75fpl"]
 resource_name = "score_flash"
-length = 2.0
+length = 3.0
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -107,10 +105,10 @@ tracks/0/path = NodePath("TetrisBackgroundGrayscale:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.25, 0.5, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1, 1, 1, 1), Color(0.552956, 0.552956, 0.552956, 1), Color(0.400698, 0.400698, 0.400698, 1), Color(0.223103, 0.223103, 0.223103, 1)]
+"values": [Color(0.47451, 0.47451, 0.47451, 1), Color(1, 1, 1, 1), Color(0.47451, 0.47451, 0.47451, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_833s5"]
@@ -139,19 +137,6 @@ visible = false
 [node name="PlayArea" parent="." instance=ExtResource("4_6x0xm")]
 position = Vector2(21, 25)
 scale = Vector2(0.48, 0.48)
-
-[node name="IntroMusic" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("5_7veen")
-volume_db = -8.0
-autoplay = true
-bus = &"Music"
-
-[node name="LoopMusic" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("5_5qqrv")
-volume_db = -8.0
-bus = &"Music"
 
 [node name="Score" type="Node2D" parent="."]
 script = ExtResource("15_wud1j")
