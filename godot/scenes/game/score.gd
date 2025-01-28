@@ -1,6 +1,6 @@
 extends Node2D
 
-var total_score = 0
+var total_score: float = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,8 +15,8 @@ func _process(_delta: float) -> void:
 func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 	# Adds up the base amount of the bubbles popped
 	%ScoreAnimations.play("score_flash")
-	var cleared_score = 0
-	var multiplier = 1
+	var cleared_score: float = 0
+	var multiplier: float = 1
 	for bubble in bubbles:
 		await bubble.BubblePopped
 		if bubble.get_powerup() != null:
@@ -45,7 +45,7 @@ func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 	update_score_label(total_score, 0, 0)
 
 # Updates the HUD label with the new total score
-func update_score_label(score: int, additive: float, multiplicative: float):
+func update_score_label(score: float, additive: float, multiplicative: float):
 	var score_string = str(score)
 	if score > 99_999_99:
 		score_string = to_scientific_notation(score)
@@ -64,7 +64,7 @@ func to_scientific_notation(number: float) -> String:
 
 
 # Adds commas to the total score integer to make the score more readable.
-func thousands_sep(number: int, prefix=''):
+func thousands_sep(number: float, prefix=''):
 	if abs(number) >= 1e10:
 		return format_large_number(number)
 	number = int(number)
@@ -79,7 +79,7 @@ func thousands_sep(number: int, prefix=''):
 	return res
 	
 
-func format_large_number(number: int):
+func format_large_number(number: float):
 	if abs(number) >= 1e10:  # Check if the number exceeds 10 digits
 		return String("{:.5e}").format(number)  # Format in scientific notation
 	return str(number)  # Return the number as is for smaller values
