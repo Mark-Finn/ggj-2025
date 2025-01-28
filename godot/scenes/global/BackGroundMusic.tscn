@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://db2bv82mwevhm"]
+
+[ext_resource type="Script" path="res://scenes/global/back_ground_music.gd" id="1_xua0e"]
+[ext_resource type="AudioStream" uid="uid://wcnj1ta8ufd5" path="res://music/zodiac_fullsong.mp3" id="2_qwov3"]
+[ext_resource type="AudioStream" uid="uid://b70fcje7ojbm1" path="res://music/zodiac_loop.mp3" id="3_plji2"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_lycgt"]
+loop = false
+fade_time = 0.43
+stream_count = 2
+stream_0 = ExtResource("2_qwov3")
+stream_1 = ExtResource("3_plji2")
+
+[node name="BackgroundMusic" type="Node2D"]
+script = ExtResource("1_xua0e")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamPlaylist_lycgt")
+volume_db = -8.0
+playback_type = 1
