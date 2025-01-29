@@ -8,7 +8,7 @@ signal BubblePopped
 const DEFAULT_TICK = .5
 const BUBBLE_POP_DURATION = 0.5
 const NEXT_BUBBLE_WAIT = 0.05
-
+@export var has_powerup := false
 
 var row 
 var column

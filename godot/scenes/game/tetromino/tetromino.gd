@@ -177,21 +177,21 @@ func is_position_blocked(pos: Vector2) -> bool:
 	return false
 	
 func _try_pick_up_power() -> void:
-	if has_power_up:
-		return
-	for bubble_position in _get_bubble_positions():
-		var pos_c = ((position / PIXELS_PER_UNIT) + bubble_position)#/ PIXELS_PER_UNIT
+	var bubble_number = 1
+	for bubble in get_bubbles():
+		if bubble.has_powerup == true:
+			return
+		var pos_c = ((position / PIXELS_PER_UNIT) + bubble.position/ PIXELS_PER_UNIT)
 		var powerup = play_area.get_position_powerup(pos_c)
 		if powerup != null:
-			has_power_up = true
-			apply_powerup(powerup)
+			apply_powerup(powerup, bubble)
 			return
 
-func apply_powerup(powerup: PowerUp) -> void:
+func apply_powerup(powerup: PowerUp, bubble: Bubble) -> void:
 	powerup.position = Vector2.ZERO
-	for bubble in get_bubbles():
-		var powerup_clone = powerup.duplicate()
-		bubble.receive_powerup(powerup_clone)
+	var powerup_clone = powerup.duplicate()
+	bubble.receive_powerup(powerup_clone)
+	has_power_up = true
 	powerup.queue_free()
 
 func _get_bubble_positions() -> Array[Vector2]:
