@@ -10,11 +10,13 @@ type = 0
 
 [node name="FlatSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 texture = ExtResource("2_c02ns")
 
 [node name="MultSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 texture = ExtResource("3_0xiua")
 
@@ -25,7 +27,6 @@ offset_top = -9.0
 offset_right = 382.0
 offset_bottom = 87.0
 scale = Vector2(0.123273, 0.152728)
-theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 70
-text = "+10"
 horizontal_alignment = 1

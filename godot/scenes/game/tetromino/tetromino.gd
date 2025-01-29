@@ -7,6 +7,7 @@ signal Placed
 @export_enum("I", "O", "T", "J", "L", "S", "Z") var letter: String = "T"
 
 var play_area: PlayArea
+const POWERUP = preload("res://scenes/game/powerup/power_up.tscn")
 
 
 const PIXELS_PER_UNIT = 32
@@ -39,29 +40,29 @@ const TETROMINO_MAP = {
 	"I": [Vector2.LEFT, Vector2.ZERO, Vector2.RIGHT, Vector2(2, 0)],
 	"O": [Vector2.ZERO, Vector2.UP, Vector2(1, -1), Vector2.RIGHT],
 	"T": [Vector2.LEFT, Vector2.ZERO, Vector2.RIGHT,Vector2.DOWN],
-	"J": [Vector2.LEFT, Vector2.ZERO, Vector2.RIGHT, Vector2(-1, -1)],
-	"L": [Vector2.LEFT, Vector2.ZERO, Vector2.RIGHT, Vector2(1, -1)],
-	"Z": [Vector2.ZERO, Vector2.RIGHT, Vector2.UP, Vector2(-1, -1)],
-	"S": [Vector2.ZERO, Vector2.LEFT, Vector2.UP, Vector2(1, -1)],
-	"U" : [Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(1, -1), ],
-	"LongT": [Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, -2), Vector2(-1, -2), Vector2(1, -2), ],
-	"dot": [Vector2(0, 0), ],
-	"I6": [Vector2(0, 1), Vector2(0, -1), Vector2(0, 0), Vector2(0, -2), Vector2(0, -3), Vector2(0, 2), ],
-	"O3x3": [Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), ],
-	"cross": [Vector2(0, 0), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), ],
-	"E" : [Vector2(0, 0), Vector2(-2, 0), Vector2(2, 0), Vector2(-2, -1), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(2, -1), ],
-	"Y": [Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0), Vector2(-1, -1), Vector2(1, 0), Vector2(1, -1), ],
-	"O4x4": [Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), Vector2(-1, -2), Vector2(0, -2), Vector2(1, -2), Vector2(2, -2), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), ], 
-	"X": [Vector2(-1, 1), Vector2(0, 0), Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), ],
-	"RING" : [Vector2(-1, -1), Vector2(-1, 0), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), ],
-	"I2x8": [Vector2(0, 1), Vector2(0, -1), Vector2(0, 0), Vector2(0, -2), Vector2(0, -3), Vector2(0, 2), Vector2(0, -4), Vector2(0, 3), Vector2(1, -4), Vector2(1, -3), Vector2(1, -2), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(1, 3), ],
-	"MissingI":[Vector2(-1, -2), Vector2(-1, -1), Vector2(-1, 0), Vector2(-1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(1, -2), Vector2(-2, 1), Vector2(-2, 0), Vector2(-2, -1), Vector2(-2, -2), Vector2(2, -2), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), Vector2(3, -2), Vector2(3, -1), Vector2(3, 0), Vector2(3, 1), Vector2(-3, -2), Vector2(-3, -1), Vector2(-3, 0), Vector2(-3, 1), ],
-	"RING2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-2, 2), Vector2(-1, 2), Vector2(0, 2), Vector2(1, 2), Vector2(2, 2), Vector2(2, 1), Vector2(2, 0), Vector2(2, -1), Vector2(2, -2), Vector2(1, -2), Vector2(0, -2), Vector2(-1, -2), Vector2(-3, -3), Vector2(-3, -2), Vector2(-3, -1), Vector2(-3, 0), Vector2(-3, 1), Vector2(-3, 2), Vector2(-3, 3), Vector2(-2, 3), Vector2(-1, 3), Vector2(0, 3), Vector2(1, 3), Vector2(2, 3), Vector2(3, 3), Vector2(3, 2), Vector2(3, 1), Vector2(3, 0), Vector2(3, -1), Vector2(3, -2), Vector2(3, -3), Vector2(2, -3), Vector2(1, -3), Vector2(0, -3), Vector2(-1, -3), Vector2(-2, -3), ],
-	"U2": [Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(-2, -2), Vector2(2, -2), Vector2(-1, -2), Vector2(-1, -1), Vector2(3, 1), Vector2(3, 0), Vector2(3, -1), Vector2(3, -2), ],
-	"E2" : [Vector2(0, -1), Vector2(0, 0), Vector2(-2, 0), Vector2(-2, -1), Vector2(2, 0), Vector2(2, -1), Vector2(-2, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(2, 1), ],
-	#"Y2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-1, -2), Vector2(-1, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(1, 3), Vector2(2, -2), Vector2(2, -1), Vector2(3, -2), Vector2(3, -1), Vector2(-2, -4), Vector2(-2, -3), Vector2(-1, -4), Vector2(-1, -3), Vector2(0, -2), Vector2(0, -1), Vector2(1, -2), Vector2(1, -1), Vector2(2, -4), Vector2(2, -3), Vector2(3, -4), Vector2(3, -3), ],
-	"I9": [Vector2(0, 0), Vector2(1, 0), Vector2(2, 0), Vector2(4, 0), Vector2(3, 0), Vector2(-1, 0), Vector2(-2, 0), Vector2(-3, 0), Vector2(-4, 0), ],
-	"DoubleBar": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-2, 2), Vector2(2, 0), Vector2(2, -1), Vector2(2, -2), Vector2(2, 1), Vector2(2, 2), ],
+	#"J": [Vector2.LEFT, Vector2.ZERO, Vector2.RIGHT, Vector2(-1, -1)],
+	#"L": [Vector2.LEFT, Vector2.ZERO, Vector2.RIGHT, Vector2(1, -1)],
+	#"Z": [Vector2.ZERO, Vector2.RIGHT, Vector2.UP, Vector2(-1, -1)],
+	#"S": [Vector2.ZERO, Vector2.LEFT, Vector2.UP, Vector2(1, -1)],
+	#"U" : [Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(1, -1), ],
+	#"LongT": [Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, -2), Vector2(-1, -2), Vector2(1, -2), ],
+	#"dot": [Vector2(0, 0), ],
+	#"I6": [Vector2(0, 1), Vector2(0, -1), Vector2(0, 0), Vector2(0, -2), Vector2(0, -3), Vector2(0, 2), ],
+	#"O3x3": [Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), ],
+	#"cross": [Vector2(0, 0), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), ],
+	#"E" : [Vector2(0, 0), Vector2(-2, 0), Vector2(2, 0), Vector2(-2, -1), Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(2, -1), ],
+	#"Y": [Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0), Vector2(-1, -1), Vector2(1, 0), Vector2(1, -1), ],
+	#"O4x4": [Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), Vector2(-1, -1), Vector2(-1, 0), Vector2(0, 0), Vector2(-1, -2), Vector2(0, -2), Vector2(1, -2), Vector2(2, -2), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), ], 
+	#"X": [Vector2(-1, 1), Vector2(0, 0), Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), ],
+	#"RING" : [Vector2(-1, -1), Vector2(-1, 0), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(0, -1), ],
+	#"I2x8": [Vector2(0, 1), Vector2(0, -1), Vector2(0, 0), Vector2(0, -2), Vector2(0, -3), Vector2(0, 2), Vector2(0, -4), Vector2(0, 3), Vector2(1, -4), Vector2(1, -3), Vector2(1, -2), Vector2(1, -1), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(1, 3), ],
+	#"MissingI":[Vector2(-1, -2), Vector2(-1, -1), Vector2(-1, 0), Vector2(-1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, -1), Vector2(1, -2), Vector2(-2, 1), Vector2(-2, 0), Vector2(-2, -1), Vector2(-2, -2), Vector2(2, -2), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), Vector2(3, -2), Vector2(3, -1), Vector2(3, 0), Vector2(3, 1), Vector2(-3, -2), Vector2(-3, -1), Vector2(-3, 0), Vector2(-3, 1), ],
+	#"RING2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-2, 2), Vector2(-1, 2), Vector2(0, 2), Vector2(1, 2), Vector2(2, 2), Vector2(2, 1), Vector2(2, 0), Vector2(2, -1), Vector2(2, -2), Vector2(1, -2), Vector2(0, -2), Vector2(-1, -2), Vector2(-3, -3), Vector2(-3, -2), Vector2(-3, -1), Vector2(-3, 0), Vector2(-3, 1), Vector2(-3, 2), Vector2(-3, 3), Vector2(-2, 3), Vector2(-1, 3), Vector2(0, 3), Vector2(1, 3), Vector2(2, 3), Vector2(3, 3), Vector2(3, 2), Vector2(3, 1), Vector2(3, 0), Vector2(3, -1), Vector2(3, -2), Vector2(3, -3), Vector2(2, -3), Vector2(1, -3), Vector2(0, -3), Vector2(-1, -3), Vector2(-2, -3), ],
+	#"U2": [Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(2, -1), Vector2(2, 0), Vector2(2, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(-2, -2), Vector2(2, -2), Vector2(-1, -2), Vector2(-1, -1), Vector2(3, 1), Vector2(3, 0), Vector2(3, -1), Vector2(3, -2), ],
+	#"E2" : [Vector2(0, -1), Vector2(0, 0), Vector2(-2, 0), Vector2(-2, -1), Vector2(2, 0), Vector2(2, -1), Vector2(-2, 1), Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1), Vector2(2, 1), ],
+	##"Y2": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-1, -2), Vector2(-1, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3), Vector2(1, 0), Vector2(1, 1), Vector2(1, 2), Vector2(1, 3), Vector2(2, -2), Vector2(2, -1), Vector2(3, -2), Vector2(3, -1), Vector2(-2, -4), Vector2(-2, -3), Vector2(-1, -4), Vector2(-1, -3), Vector2(0, -2), Vector2(0, -1), Vector2(1, -2), Vector2(1, -1), Vector2(2, -4), Vector2(2, -3), Vector2(3, -4), Vector2(3, -3), ],
+	#"I9": [Vector2(0, 0), Vector2(1, 0), Vector2(2, 0), Vector2(4, 0), Vector2(3, 0), Vector2(-1, 0), Vector2(-2, 0), Vector2(-3, 0), Vector2(-4, 0), ],
+	#"DoubleBar": [Vector2(-2, -2), Vector2(-2, -1), Vector2(-2, 0), Vector2(-2, 1), Vector2(-2, 2), Vector2(2, 0), Vector2(2, -1), Vector2(2, -2), Vector2(2, 1), Vector2(2, 2), ],
 	#"X2": [Vector2(0, 0), Vector2(1, 0), Vector2(0, -1), Vector2(1, -1), Vector2(2, -2), Vector2(3, -2), Vector2(3, -3), Vector2(2, -3), Vector2(-1, -3), Vector2(-1, -2), Vector2(-2, -2), Vector2(-2, -3), Vector2(-1, 1), Vector2(-2, 1), Vector2(-2, 2), Vector2(-1, 2), Vector2(2, 1), Vector2(2, 2), Vector2(3, 2), Vector2(3, 1), ],
 	
 } 
@@ -78,11 +79,17 @@ func _ready() -> void:
 	play_area = get_parent()
 	assert(letter in TETROMINO_MAP)
 	var color = TETROMINO_COLORS[letter] if TETROMINO_COLORS.has(letter) else TETROMINO_COLORS.values().pick_random()
+	var bubble_number = 0
 	for pos in TETROMINO_MAP[letter]:
 		var bubble = BUBBLE.instantiate()
 		bubble.modulate = color
 		bubble.position = pos * PIXELS_PER_UNIT
+		var bubble_powerup_type = play_area.powerup_map[letter][bubble_number]
+		var powerup = POWERUP.instantiate()
+		powerup.type = bubble_powerup_type
+		bubble.receive_powerup(powerup)
 		%Bubbles.add_child(bubble)
+		bubble_number += 1
 		
 
 func _process(delta: float) -> void:
@@ -180,7 +187,7 @@ func _try_pick_up_power() -> void:
 	var bubble_number = 1
 	for bubble in get_bubbles():
 		if bubble.has_powerup == true:
-			return
+			continue
 		var pos_c = ((position / PIXELS_PER_UNIT) + bubble.position/ PIXELS_PER_UNIT)
 		var powerup = play_area.get_position_powerup(pos_c)
 		if powerup != null:
@@ -191,7 +198,7 @@ func apply_powerup(powerup: PowerUp, bubble: Bubble) -> void:
 	powerup.position = Vector2.ZERO
 	var powerup_clone = powerup.duplicate()
 	bubble.receive_powerup(powerup_clone)
-	has_power_up = true
+	#has_power_up = true
 	powerup.queue_free()
 
 func _get_bubble_positions() -> Array[Vector2]:

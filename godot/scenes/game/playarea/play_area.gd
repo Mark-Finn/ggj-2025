@@ -7,8 +7,8 @@ const CONSECUTIVE_BUBBLE_POP = 10.0
 signal PoppedBubbles
 
 
-@export var min_tetrominos_per_powerup := 2
-@export var max_tetrominos_per_powerup := 5
+@export var min_tetrominos_per_powerup := 1
+@export var max_tetrominos_per_powerup := 3
 
 
 # Constanst
@@ -25,6 +25,10 @@ var powerup_grid: Dictionary = {}
 var tetronimo_max := 7.0
 var tetrominos_until_power_up: int
 var max_tetromino_radius := 0
+var powerup_map = {
+	"I": ["mult", null, null, null],
+	"O": [null, "mult", null, null]
+	}
 
 
 func is_position_blocked(pos: Vector2) -> bool:
@@ -77,8 +81,9 @@ func _spawn_tetromino() -> void:
 	var spawn_pos = Vector2i(spawn_col, %Grid.height - 1)
 	var tetromino = TETROMINO.instantiate()
 	tetromino.position = spawn_pos * PIXELS_TO_UNITS
-	var tetromino_selected := int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size() - 1)))
-	tetromino.letter = Tetromino.TETROMINO_MAP.keys()[tetromino_selected] #picks random letter from tetromino maps
+	var tetromino_selected := int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size())))
+	var letter = Tetromino.TETROMINO_MAP.keys()[tetromino_selected] #picks random letter from tetromino maps
+	tetromino.letter = letter
 	tetronimo_max += 1.0
 	tetromino.Placed.connect(_on_placed)
 	add_child(tetromino)
@@ -90,7 +95,6 @@ func _spawn_powerup() -> void:
 	var spawn_spot = _get_random_empty_cell()
 	powerup.position = spawn_spot * PIXELS_TO_UNITS
 	powerup.type = ["mult", "flat"].pick_random()
-	
 	var power_row: int = spawn_spot.y
 	var power_col: int = spawn_spot.x
 	powerup_grid[power_row][power_col] = powerup
