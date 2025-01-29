@@ -45,13 +45,16 @@ func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 # Updates the HUD label with the new total score
 func update_score_label(score: float, additive: float, multiplicative: float):
 	var score_string = str(score)
+	var multiplicative_string = str(multiplicative)
 	if score > 99_999_99:
 		score_string = to_scientific_notation(score)
+	if multiplicative > 99_999_99:
+		multiplicative_string = to_scientific_notation(multiplicative)
 	var score_label =  $HUD/Label
 	if additive == 0:
 		score_label.text = str("Score:\n") + score_string
 	else:
-		score_label.text = str("Score:\n") + score_string + " + " + str(additive) + " x " + str(multiplicative)
+		score_label.text = str("Score:\n") + score_string + " + " + str(additive) + " x " + str(multiplicative_string)
 	
 	
 func to_scientific_notation(number: float) -> String:
