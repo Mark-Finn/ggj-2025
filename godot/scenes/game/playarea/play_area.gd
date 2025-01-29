@@ -26,8 +26,30 @@ var tetronimo_max := 7.0
 var tetrominos_until_power_up: int
 var max_tetromino_radius := 0
 var powerup_map = {
-	"I": ["mult", null, null, null],
-	"O": [null, "mult", null, null]
+	"I": [null,null,null,null,null,],
+	"O": [null, null, null, null],
+	"T": [null, null, null, null],
+	"J": [null, null, null, null],
+	"L": [null, null, null, null],
+	"Z": [null, null, null, null],
+	"S": [null, null, null, null],
+	"U" : [null, null, null, null, null],
+	"LongT": [null, null, null, null, null, null, null],
+	"dot": [null ],
+	"I6": [null, null, null, null, null, null ],
+	"O3x3": [null, null, null, null, null, null, null, null, null ],
+	"cross": [null, null, null, null, null],
+	"E" : [null, null, null, null, null, null, null, null ],
+	"Y": [null, null, null, null, null, null],
+	"O4x4": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ], 
+	"X": [null, null, null, null, null],
+	"RING" : [null, null, null, null, null, null, null, null],
+	"I2x8": [null, null, null, null, null, null, null, null, null, null, null, null, null,null,null,null, ],
+	"MissingI":[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
+	"RING2": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,null, null, null, null, null, null, null, null, null, null, ],
+	"U2": [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+	"E2" : [null,null,null,null,null,null,null,null,null,null,null,],
+	"I9": [null,null,null,null,null,null,null,null,null,],
 	}
 
 
@@ -238,7 +260,9 @@ func _handle_popped_bubbles(bubbles_positions: Array[Vector2i]) -> void:
 		
 	await _handle_placed_bubbles()
 		
-		
+func update_powerup_map(letter, bubble_number, powerup_type) -> void:
+	powerup_map[letter][bubble_number] = powerup_type
+	
 		
 var _GAME_OVER: Array[Vector2] = [
 	Vector2(0, 1), Vector2(1, 0), Vector2(2, 0), Vector2(3, 0), Vector2(4, 1), Vector2(0, 2), 
