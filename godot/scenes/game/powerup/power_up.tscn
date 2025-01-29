@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctu66dkq5igff"]
 
 [ext_resource type="Script" path="res://scenes/game/powerup/power_up.gd" id="1_mmn31"]
-[ext_resource type="Texture2D" uid="uid://wn0s3ru2b0v5" path="res://scenes/game/powerup/+10 power.png" id="2_8drlx"]
-[ext_resource type="Texture2D" uid="uid://c5hgwbn5xtpam" path="res://scenes/game/powerup/x2 power up.png" id="3_io2ps"]
+[ext_resource type="Texture2D" uid="uid://2okx223vunap" path="res://scenes/game/powerup/EmptyFlat.png" id="2_c02ns"]
+[ext_resource type="Texture2D" uid="uid://cmuwjsxx14oab" path="res://scenes/game/powerup/EmptyMult.png" id="3_0xiua"]
 
 [node name="PowerUp" type="Node2D"]
 script = ExtResource("1_mmn31")
@@ -11,9 +11,22 @@ type = 0
 [node name="FlatSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
-texture = ExtResource("2_8drlx")
+texture_filter = 1
+texture = ExtResource("2_c02ns")
 
 [node name="MultSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
-texture = ExtResource("3_io2ps")
+texture_filter = 1
+texture = ExtResource("3_0xiua")
+
+[node name="Display" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -24.0
+offset_top = -9.0
+offset_right = 382.0
+offset_bottom = 87.0
+scale = Vector2(0.123273, 0.152728)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1

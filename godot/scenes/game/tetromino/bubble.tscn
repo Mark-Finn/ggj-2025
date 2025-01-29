@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://1c257f21k3oc"]
 
 [ext_resource type="Script" path="res://scenes/game/tetromino/bubble.gd" id="1_bpdb4"]
-[ext_resource type="Texture2D" uid="uid://nxru6cho71n1" path="res://scenes/game/tetromino/BubbleandPowersSpriteSheet.png" id="2_wn43a"]
+[ext_resource type="Texture2D" uid="uid://03pye8qs4ep8" path="res://scenes/game/tetromino/EmptyBubbles.png" id="2_3nxcl"]
 [ext_resource type="Texture2D" uid="uid://jxle3qj8bp6g" path="res://scenes/game/powerup/2x bubble.png" id="3_ptarw"]
 [ext_resource type="AudioStream" uid="uid://c3ya1wk0fagd5" path="res://soundeffects/bubblepop_0.wav" id="3_vn22k"]
 [ext_resource type="AudioStream" uid="uid://ouyj63abl7nv" path="res://soundeffects/bubblepop_1.wav" id="3_x47o3"]
@@ -282,7 +282,7 @@ script = ExtResource("1_bpdb4")
 unique_name_in_owner = true
 texture_filter = 1
 scale = Vector2(1.24787, 1.21768)
-texture = ExtResource("2_wn43a")
+texture = ExtResource("2_3nxcl")
 hframes = 4
 vframes = 5
 

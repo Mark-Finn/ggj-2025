@@ -8,7 +8,7 @@ signal BubblePopped
 const DEFAULT_TICK = .5
 const BUBBLE_POP_DURATION = 0.5
 const NEXT_BUBBLE_WAIT = 0.05
-
+@export var has_powerup := false
 
 var row 
 var column
@@ -37,12 +37,16 @@ func change_position_after_pop(pos: Vector2) -> Signal:
 	return tween.finished
 
 func receive_powerup(powerup: PowerUp) -> void:
-	add_child(powerup)
-	modulate = Color(1, 1, 1)
-	if powerup.type == "mult":
-		%Bubble.frame = 11
-	else:
-		%Bubble.frame = 6
+	if powerup.type != null:
+		add_child(powerup)
+		modulate = Color(1, 1, 1)
+		has_powerup = true
+		if powerup.type == "mult":
+			%Bubble.frame = 11
+		else:
+			%Bubble.frame = 6
+	else: 
+		return
 	
 func animation_place(game_tick_length:float) -> void:
 	%BubbleAnimationPlayer.speed_scale = 2 * (DEFAULT_TICK/game_tick_length)

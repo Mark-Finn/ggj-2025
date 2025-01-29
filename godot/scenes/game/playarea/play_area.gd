@@ -7,8 +7,8 @@ const CONSECUTIVE_BUBBLE_POP = 10.0
 signal PoppedBubbles
 
 
-@export var min_tetrominos_per_powerup := 2
-@export var max_tetrominos_per_powerup := 5
+@export var min_tetrominos_per_powerup := 1
+@export var max_tetrominos_per_powerup := 3
 
 
 # Constanst
@@ -25,6 +25,32 @@ var powerup_grid: Dictionary = {}
 var tetronimo_max := 7.0
 var tetrominos_until_power_up: int
 var max_tetromino_radius := 0
+var powerup_map = {
+	"I": [null,null,null,null,null,],
+	"O": [null, null, null, null],
+	"T": [null, null, null, null],
+	"J": [null, null, null, null],
+	"L": [null, null, null, null],
+	"Z": [null, null, null, null],
+	"S": [null, null, null, null],
+	"U" : [null, null, null, null, null],
+	"LongT": [null, null, null, null, null, null, null],
+	"dot": [null ],
+	"I6": [null, null, null, null, null, null ],
+	"O3x3": [null, null, null, null, null, null, null, null, null ],
+	"cross": [null, null, null, null, null],
+	"E" : [null, null, null, null, null, null, null, null ],
+	"Y": [null, null, null, null, null, null],
+	"O4x4": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ], 
+	"X": [null, null, null, null, null],
+	"RING" : [null, null, null, null, null, null, null, null],
+	"I2x8": [null, null, null, null, null, null, null, null, null, null, null, null, null,null,null,null, ],
+	"MissingI":[null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null ],
+	"RING2": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,null, null, null, null, null, null, null, null, null, null, ],
+	"U2": [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
+	"E2" : [null,null,null,null,null,null,null,null,null,null,null,],
+	"I9": [null,null,null,null,null,null,null,null,null,],
+	}
 
 
 func is_position_blocked(pos: Vector2) -> bool:
@@ -77,8 +103,9 @@ func _spawn_tetromino() -> void:
 	var spawn_pos = Vector2i(spawn_col, %Grid.height - 1)
 	var tetromino = TETROMINO.instantiate()
 	tetromino.position = spawn_pos * PIXELS_TO_UNITS
-	var tetromino_selected := int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size() - 1)))
-	tetromino.letter = Tetromino.TETROMINO_MAP.keys()[tetromino_selected] #picks random letter from tetromino maps
+	var tetromino_selected := int(randf_range(0, min(tetronimo_max, Tetromino.TETROMINO_MAP.size())))
+	var letter = Tetromino.TETROMINO_MAP.keys()[tetromino_selected] #picks random letter from tetromino maps
+	tetromino.letter = letter
 	tetronimo_max += 1.0
 	tetromino.Placed.connect(_on_placed)
 	add_child(tetromino)
@@ -90,7 +117,6 @@ func _spawn_powerup() -> void:
 	var spawn_spot = _get_random_empty_cell()
 	powerup.position = spawn_spot * PIXELS_TO_UNITS
 	powerup.type = ["mult", "flat"].pick_random()
-	
 	var power_row: int = spawn_spot.y
 	var power_col: int = spawn_spot.x
 	powerup_grid[power_row][power_col] = powerup
@@ -234,7 +260,9 @@ func _handle_popped_bubbles(bubbles_positions: Array[Vector2i]) -> void:
 		
 	await _handle_placed_bubbles()
 		
-		
+func update_powerup_map(letter, bubble_number, powerup_type) -> void:
+	powerup_map[letter][bubble_number] = powerup_type
+	
 		
 var _GAME_OVER: Array[Vector2] = [
 	Vector2(0, 1), Vector2(1, 0), Vector2(2, 0), Vector2(3, 0), Vector2(4, 1), Vector2(0, 2), 
