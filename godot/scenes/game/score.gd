@@ -21,10 +21,8 @@ func _on_play_area_popped_bubbles(bubbles: Array[Bubble]) -> void:
 		await bubble.BubblePopped
 		if bubble.get_powerup() != null:
 			if bubble.get_powerup().type == "mult":
-				print("mult power up ", bubble.get_powerup().value)
 				multiplier *= bubble.get_powerup().value
 			else:
-				print("add power up ", bubble.get_powerup().value)
 				bubble.score += bubble.get_powerup().value
 		cleared_score += bubble.score
 		update_score_label(total_score, cleared_score, multiplier)
