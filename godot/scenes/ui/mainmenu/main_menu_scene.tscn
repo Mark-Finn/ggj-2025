@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dv2y18ye8j7o0"]
+[gd_scene load_steps=15 format=3 uid="uid://dv2y18ye8j7o0"]
 
 [ext_resource type="Script" path="res://scenes/ui/mainmenu/main_menu_scene.gd" id="1_1foie"]
 [ext_resource type="PackedScene" uid="uid://cik30de5gaaah" path="res://scenes/game/ingame_scene.tscn" id="2_nl5i6"]
@@ -9,7 +9,6 @@
 [ext_resource type="FontFile" uid="uid://csjn7ryho7u8v" path="res://fonts/PixelatedEleganceRegular-ovyAA.ttf" id="6_eif4f"]
 [ext_resource type="Texture2D" uid="uid://dem0jrd0a747g" path="res://visualassets/Slortiz_streetartstyle2.png" id="6_qps5d"]
 [ext_resource type="PackedScene" uid="uid://1c257f21k3oc" path="res://scenes/game/tetromino/bubble.tscn" id="7_g0lrd"]
-[ext_resource type="AudioStream" uid="uid://b3vseqobyi2ny" path="res://music/projectzodiac-menuloop.mp3" id="8_fwsfs"]
 [ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="10_eh7la"]
 
 [sub_resource type="Theme" id="Theme_w70il"]
@@ -103,13 +102,6 @@ texture = ExtResource("6_qps5d")
 [node name="FadeOverlay" parent="UI" instance=ExtResource("3_kf1us")]
 unique_name_in_owner = true
 visible = false
-
-[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("8_fwsfs")
-volume_db = -3.0
-autoplay = true
-bus = &"Music"
 
 [node name="Bubbles" type="Node2D" parent="."]
 unique_name_in_owner = true

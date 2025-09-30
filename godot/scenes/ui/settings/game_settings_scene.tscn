@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://g4qhvbvdm62w"]
+[gd_scene load_steps=6 format=3 uid="uid://g4qhvbvdm62w"]
 
 [ext_resource type="Script" path="res://scenes/ui/settings/game_settings_scene.gd" id="1_3764u"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="1_w6tmj"]
 [ext_resource type="PackedScene" uid="uid://nbaodrlopo7y" path="res://ui/components/game_settings.tscn" id="2_qsqie"]
 [ext_resource type="Theme" uid="uid://d22mpqutkotsu" path="res://ui/theme.tres" id="3_unbh4"]
-[ext_resource type="AudioStream" uid="uid://b3vseqobyi2ny" path="res://music/projectzodiac-menuloop.mp3" id="5_3kmkg"]
 [ext_resource type="Texture2D" uid="uid://dl28ilcyykosx" path="res://visualassets/Tetris Background grayscale.png" id="6_ssoof"]
 
 [node name="GameSettingsScene" type="Node2D"]
@@ -40,12 +39,6 @@ text = "return_to_main"
 [node name="FadeOverlay" parent="UI" instance=ExtResource("1_w6tmj")]
 unique_name_in_owner = true
 visible = false
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_3kmkg")
-volume_db = -3.0
-autoplay = true
-bus = &"Music"
 
 [node name="TetrisBackgroundGrayscale" type="Sprite2D" parent="."]
 position = Vector2(273.5, 160)
